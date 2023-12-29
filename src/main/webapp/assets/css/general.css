@@ -1,0 +1,50 @@
+.cart-container{
+  display: inline-block;
+  position: relative;
+
+}
+
+.cart-quantity {
+display: inline-block;
+position: absolute;
+top: -11px; 
+right: -10px;
+color: rgb(42,42,42);
+}
+
+.cart-icon{
+  width: 20px;
+}
+.section-heading-discover-more span{
+  font-size: 14px;
+  color: #0aabd8;
+  font-style: italic;
+  font-weight: 400;
+  text-decoration: underline;
+}
+.customer-billing-address .input-group{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+}
+.customer-billing-address label{
+ padding: 10px 20px 4px 10px;
+ white-space: nowrap;
+ width: 130px;
+}
+.customer-billing-address input{
+  flex-grow: 1;
+  width: 200px  
+   
+ }
+
+ .button-save-billing-address{
+  border-radius: 10px;
+  padding: 8px 20px 8px 20px;
+ }
+
+ .card-detail-form label{
+  width: 130px;
+  padding-bottom: 10px;
+ }

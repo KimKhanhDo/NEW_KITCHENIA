@@ -53,21 +53,27 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html">Tabletop</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html">Accessories</a></li>
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
                             </a></li>                             
@@ -393,10 +399,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                        <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">

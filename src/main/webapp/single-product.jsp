@@ -1,5 +1,5 @@
-<%@page import="dao.ProductDAO"%>
-<%@page import="entity.Product"%>
+<%@ page import="dao.ProductDAO"%>
+<%@ page import="entity.Product"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
@@ -84,19 +84,19 @@ https://templatemo.com/tm-571-hexashop
 						<ul class="nav">
 							<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
 							<li class="scroll-to-section"><a
-								href="products-cookware.html?category=Cookware">Cookware</a></li>
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
 							<li class="scroll-to-section"><a
-								href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
 							<li class="scroll-to-section"><a
-								href="products-tabletop.html?category=Tabletop">TableTop</a></li>
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
 							<li class="scroll-to-section"><a
-								href="products-accessories.html?category=Accessories">Accessories</a></li>
-							<li class="scroll-to-section"><a href="about.html">About
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
 									Us</a></li>
-							<li class="scroll-to-section"><a href="contact.html">Contact
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
 									Us</a></li>
-							<li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-							<li class="scroll-to-section"><a href="checkout.html">
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
 									<div class="cart-quantity js-cart-quantity">0</div> <img
 									class="cart-icon" src="assets/icons/cart-icon.png">
 							</a></li>
@@ -137,7 +137,7 @@ https://templatemo.com/tm-571-hexashop
             <div class="col-lg-4">
                 <div class="right-content">
                     <h4>${product.brand}</h4>
-                    <h4 style="font-weight: normal;">${product.name}</h4>
+                    <h5 style="font-weight: normal;">${product.name}</h5>
 
                     <!-- Add Rating Star Area-->
                     <div class="product-ratting">
@@ -160,9 +160,9 @@ https://templatemo.com/tm-571-hexashop
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
-                    <span>${product.quantity}</span>
-                    <span>${product.description}</span>
-                   
+                    <h6>Quantity: ${product.quantity}</h6>
+                    <span>Description: ${product.description}</span>
+                    <div class="quantity-content">
                         <div class="left-content">
                             <h6>No. of Orders</h6>
                         </div>
@@ -174,7 +174,7 @@ https://templatemo.com/tm-571-hexashop
                     </div>
                     <div class="total">
                         <h4>Total: </h4>
-                        <div class="main-border-button"><a href="#">Add To Cart</a></div>
+                        <div class="main-border-button" ><a href="#">Add To Cart</a></div>
                     </div>
 
                 </div>
@@ -203,10 +203,10 @@ https://templatemo.com/tm-571-hexashop
 				<div class="col-lg-3">
 					<h4>SHOPPING WITH US</h4>
 					<ul>
-						<li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-						<li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-						<li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-						<li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+						   <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-3">

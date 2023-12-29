@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>Kitchenia - Bakeware Product Listing Page</title>
+    <title>Kitchenia - Contact Page</title>
 
 
     <!-- Additional CSS Files -->
@@ -53,26 +53,30 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="index.html" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html?category=Cookware">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html?category=Tabletop">TableTop</a></li>
-                            <li class="scroll-to-section"><a href="products-accessories.html?category=Accessories">Accessories</a></li>                         
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
-                            </a></li>                             
-                           
-                           
+                            </a></li>    
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>
@@ -86,11 +90,12 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="page-heading" id="top">
+    <div class="page-heading about-page-heading" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="inner-content">
+                        <!--Here to Help-->
                     </div>
                 </div>
             </div>
@@ -98,32 +103,103 @@ https://templatemo.com/tm-571-hexashop
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-
-    <!-- ***** Products Area Starts ***** -->
-    <section class="section" id="products">
+    <!-- ***** Contact Area Starts ***** -->
+    <div class="contact-us">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div id="map">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3150.5127231386027!2d145.00560289999999!3d-37.8482919!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad669d4d62dbad7%3A0xb46b6d809680ef06!2s585%20Malvern%20Rd%2C%20Toorak%20VIC%203142!5e0!3m2!1sen!2sau!4v1702351861580!5m2!1sen!2sau" width="550" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      <!-- You can simply copy and paste "Embed a map" code from Google Maps for any location. -->
+                      
+                    </div>
+                </div>
+                <div class="col-lg-6">
                     <div class="section-heading">
-                        <h2>Unleash Your Baking Potential</h2>
-                        <span>Craft, bake, and delight with our exquisite bakeware collection.</span>
+                        <h2>Get In Touch And Let Us Know How We Can Help</h2>
+                        <span>Send Us A Message</span>
+                    </div>
+                    <form id="contact" action="" method="post">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your name" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-6">
+                            <fieldset>
+                              <input name="email" type="text" id="email" placeholder="Your email" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <textarea name="message" rows="6" id="message" placeholder="Your message" required=""></textarea>
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Contact Area Ends ***** -->
+
+    <!-- ***** Subscribe Area Starts ***** -->
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="section-heading">
+                        <h2>By Subscribing To Our Newsletter You Can Get 10% Off</h2>
+                        <span>Entertaining Ideas For Your Life</span>
+                    </div>
+                    <form id="subscribe" action="" method="get">
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your Name" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-5">
+                            <fieldset>
+                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-2">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul>
+                                <li>Store Location:<br><span>585 Malvern Rd Toorak VIC 3142</span></li>
+                                <li>Phone:<br><span>010-020-0340</span></li>
+                                <li>Office Location:<br><span>9-11 Little Bridge St Ballarat Central VIC 3350</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul>
+                                <li>Work Hours:<br><span>09:00 AM - 5:30 PM Daily</span></li>
+                                <li>Email:<br><span>info@kitchenia.com.au</span></li>
+                                <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row js-products-grid ">               
-                
-            </div>
-            <div class="col-lg-12">
-                <div class="pagination">
-                    
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Products Area Ends ***** -->
-    
+    </div>
+    <!-- ***** Subscribe Area Ends ***** -->
+
     <!-- ***** Footer Start ***** -->
     <footer>
         <div class="container">
@@ -143,10 +219,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                        <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -205,7 +281,6 @@ https://templatemo.com/tm-571-hexashop
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
 
-
     <script>
 
         $(function() {
@@ -223,11 +298,7 @@ https://templatemo.com/tm-571-hexashop
         });
 
     </script>
-   
-   <script>
-       const category = "Bakeware";      
-     </script>
-     <script type ="module" src="assets/js/checkout/hexa.js"></script> 
+ <script type ="module" src="assets/js/checkout/hexa.js"></script> 
   </body>
 
 </html>

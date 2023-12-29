@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>Kitchenia - Tabletop Products Listing Page</title>
+    <title>Kitchenia - Check Out Page</title>
 
 
     <!-- Additional CSS Files -->
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="assets/css/lightbox.css">
 
     <link rel="stylesheet" href="assets/css/general.css">
+ 
+    <link rel="stylesheet" href="assets/css/tracking.css">
+    
 <!--
 
 TemplateMo 571 Hexashop
@@ -53,27 +56,31 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="index.html" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html?category=Cookware">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html?category=Tabletop">TableTop</a></li>
-                            <li class="scroll-to-section"><a href="products-accessories.html?category=Accessories">Accessories</a></li>  
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
-                            </a></li>                             
-                           
-                           
-                        </ul>        
+                            </a></li>    
+                        </ul>             
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -86,7 +93,7 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="page-heading" id="top">
+    <div class="page-heading about-page-heading" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -98,31 +105,101 @@ https://templatemo.com/tm-571-hexashop
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
+    <!-- ***** Explore Area Starts ***** -->
+    <section>
+       
+    </section>
+    <!-- ***** Explore Area Ends ***** -->
 
-    <!-- ***** Products Area Starts ***** -->
-    <section class="section" id="products">
+    <div class="main">
+      <div class="order-tracking">
+        <a class="back-to-orders-link link-primary" href="your-orders.html">
+          View all orders
+        </a>
+
+        <div class="delivery-date">
+          Arriving on Monday, June 13
+        </div>
+
+        <div class="product-info">
+          Black and Gray Athletic Cotton Socks - 6 Pairs
+        </div>
+
+        <div class="product-info">
+          Quantity: 1
+        </div>
+
+        <img class="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg">
+
+        <div class="progress-labels-container">
+          <div class="progress-label">
+            Preparing
+          </div>
+          <div class="progress-label current-status">
+            Shipped
+          </div>
+          <div class="progress-label">
+            Delivered
+          </div>
+        </div>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+    </div>
+    <!-- ***** Subscribe Area Starts ***** -->
+    <div class="subscribe">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     <div class="section-heading">
-                        <h2>Big Brand Tabletop</h2>
-                        <span>Discover the ideal plates, bowls, and serving pieces for your table setting with Hexa</span>
+                        <h2>By Subscribing To Our Newsletter You Can Get 10% Off</h2>
+                        <span>Entertaining Ideas For Your Life</span>
+                    </div>
+                    <form id="subscribe" action="" method="get">
+                        <div class="row">
+                          <div class="col-lg-5">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your Name" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-5">
+                            <fieldset>
+                              <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email Address" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-2">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                            </fieldset>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <ul>
+                                <li>Store Location:<br><span>585 Malvern Rd Toorak VIC 3142</span></li>
+                                <li>Phone:<br><span>010-020-0340</span></li>
+                                <li>Office Location:<br><span>9-11 Little Bridge St Ballarat Central VIC 3350</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul>
+                                <li>Work Hours:<br><span>09:00 AM - 5:30 PM Daily</span></li>
+                                <li>Email:<br><span>info@kitchenia.com.au</span></li>
+                                <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row js-products-grid">                
-                
-            </div>
-            <div class="col-lg-12">
-                <div class="pagination">                        
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Products Area Ends ***** -->
-    
+    </div>
+    <!-- ***** Subscribe Area Ends ***** -->
+
     <!-- ***** Footer Start ***** -->
     <footer>
         <div class="container">
@@ -142,10 +219,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                          <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -180,7 +257,6 @@ https://templatemo.com/tm-571-hexashop
             </div>
         </div>
     </footer>
-    
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
@@ -204,8 +280,6 @@ https://templatemo.com/tm-571-hexashop
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
 
-   
-
     <script>
 
         $(function() {
@@ -223,11 +297,7 @@ https://templatemo.com/tm-571-hexashop
         });
 
     </script>
- <script type ="module" src="assets/js/checkout/hexa.js"></script> 
- <script>
-     const category = "Tabletop";     
-   </script>
-   
+
   </body>
 
 </html>

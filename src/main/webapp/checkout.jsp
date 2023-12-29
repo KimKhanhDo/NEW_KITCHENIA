@@ -1,3 +1,4 @@
+<!-- checkout.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>Kitchenia - Accessory Products Listing Page</title>
+    <title>Kitchenia - Check Out Page</title>
 
 
     <!-- Additional CSS Files -->
@@ -24,6 +25,10 @@
     <link rel="stylesheet" href="assets/css/lightbox.css">
 
     <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="assets/css/checkout-header.css">
+    <link rel="stylesheet" href="assets/css/checkout.css">
+
+    
 <!--
 
 TemplateMo 571 Hexashop
@@ -53,27 +58,31 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="index.html" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html?category=Cookware">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html?category=Tabletop">TableTop</a></li>
-                            <li class="scroll-to-section"><a href="products-accessories.html?category=Accessories">Accessories</a></li> 
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
-                            </a></li>                             
-                           
-                           
-                        </ul>        
+                            </a></li>    
+                        </ul>             
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -86,7 +95,7 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
-    <div class="page-heading" id="top">
+    <div class="page-heading about-page-heading" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -98,32 +107,28 @@ https://templatemo.com/tm-571-hexashop
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-
-    <!-- ***** Products Area Starts ***** -->
-    <section class="section" id="products">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-heading">
-                        <h2>Big Brand Accessories</h2>
-                        <span>Choose from a variety of styles and designs to suit your kitchen aesthetic</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row js-products-grid">                
-                
-            </div>
-            <div class="col-lg-12">
-                <div class="pagination">
-                    
-                </div>
-            </div>
-        </div>
+    <!-- ***** Explore Area Starts ***** -->
+    <section>
+        <div class="checkout-header-middle-section">
+            Checkout (<a class="return-to-home-link"
+              href="index.html">3 items</a>)
+          </div>
     </section>
-    <!-- ***** Products Area Ends ***** -->
-    
+    <!-- ***** Explore Area Ends ***** -->
+
+    <div class="main">
+        <div class="page-title">Review your order</div>
+  
+        <div class="checkout-grid">
+          <div class="order-summary js-order-summary">
+          </div>
+  
+          <div class="payment-summary js-payment-summary">
+          </div>
+        </div>
+      </div>
+    <!-- ***** Subscribe Area Ends ***** -->
+
     <!-- ***** Footer Start ***** -->
     <footer>
         <div class="container">
@@ -143,10 +148,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                         <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -181,7 +186,6 @@ https://templatemo.com/tm-571-hexashop
             </div>
         </div>
     </footer>
-    
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
@@ -201,10 +205,11 @@ https://templatemo.com/tm-571-hexashop
     <script src="assets/js/slick.js"></script> 
     <script src="assets/js/lightbox.js"></script> 
     <script src="assets/js/isotope.js"></script> 
+  
+    
     
     <!-- Global Init -->
     <script src="assets/js/custom.js"></script>
-
 
     <script>
 
@@ -223,11 +228,10 @@ https://templatemo.com/tm-571-hexashop
         });
 
     </script>
-   
-    <script>
-        const category = "Accessories";
-              </script>
-       <script type ="module" src="assets/js/checkout/hexa.js"></script> 
+
+<script type="module" src="assets/js/checkout/checkout.js"></script>
+ <script type ="module" src="assets/js/checkout/hexa.js"></script> 
+
   </body>
 
 </html>

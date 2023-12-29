@@ -25,8 +25,12 @@
 
     <link rel="stylesheet" href="assets/css/general.css">
  
-    <link rel="stylesheet" href="assets/css/tracking.css">
-    
+    <link rel="stylesheet" href="assets/css/order.css">
+   
+    <link rel="stylesheet" href="assets/css/checkout-header.css">
+
+    <link rel="stylesheet" href="assets/css/checkout.css">
+
 <!--
 
 TemplateMo 571 Hexashop
@@ -56,21 +60,27 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html?category=Cookware">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html?category=Tabletop">TableTop</a></li>
-                            <li class="scroll-to-section"><a href="products-accessories.html?category=Accessories">Accessories</a></li> 
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
                             </a></li>    
@@ -99,49 +109,91 @@ https://templatemo.com/tm-571-hexashop
     </div>
     <!-- ***** Main Banner Area End ***** -->
 
-    <!-- ***** Explore Area Starts ***** -->
+    <!-- ***** Customer Orders Area Starts ***** -->
     <section>
-       
-    </section>
-    <!-- ***** Explore Area Ends ***** -->
+      <div class="main">
+        <div class="page-title">Review your order</div>
+  
+        <div class="checkout-grid">
+          <div>
+            <div class="order-summary js-order-summary">  </div>      
+            <div class="cart-item-container">
 
-    <div class="main">
-      <div class="order-tracking">
-        <a class="back-to-orders-link link-primary" href="your-orders.html">
-          View all orders
-        </a>
+              <h3 class="payment-summary-title">Customer  Details </h3>
+                     
+              <form class="customer-billing-address">
+                <div class="input-group"><label for="fname">First Name: </label>
+                  <input type="text" ></div>
+                <div class="input-group"><label for="lname">Last Name: </label>
+                  <input type="text" ></div>
+                <div class="input-group"> <label for="email">Email: </label>
+                  <input type="email" ></div>
+                <div class="input-group"> <label for="company">Company: </label>
+                  <input type="text" ></div>
+                <div class="input-group"><label for="address1">Address 1: </label>
+                  <input type="text"></div>
+                <div class="input-group"><label for="address2">Address 2: </label>
+                  <input type="text" ></div>
+                <div class="input-group"><label for="postcode">Postcode: </label>
+                  <input type="text" ></div>
+                <div class="input-group"><label for="suburb">Suburb: </label>
+                  <input type="text" ></div>
+                <div class="input-group">  <label for="phone">Phone: </label>
+                  <input type="tel" ></div>            
+                    
+              </form>
+              <input type="button" value="Save billing address" class="button-save-billing-address">
+            </div>
 
-        <div class="delivery-date">
-          Arriving on Monday, June 13
-        </div>
+            <!-- PAYMENT METHOD -->
+            <div class="cart-item-container">
+              <h3 class="payment-summary-title">Payment Method </h3>
+            <form>
+              <div class="payment-method"> 
+                <input type="radio" id="creditCard" name="paymentMethod">
+                <label>Credit Card <span> ($2.00)</span></label>
+              </div>
+              <div class="payment-method"> 
+                <input type="radio" id="americanExpress" name="paymentMethod">
+                <label>American Express <span> ($2.00)</span></label>
+              </div>
+              <div class="payment-method"> 
+                <input type="radio" id="paypal" name="paymentMethod">
+                <label>Paypal <span> ($2.00)</span></label>
+              </div>
+              <div class="payment-method"> 
+                <input type="radio" id="afterPay" name="paymentMethod">
+                <label>After Pay </label>
+              </div>
+            </form>
+            </div>
 
-        <div class="product-info">
-          Black and Gray Athletic Cotton Socks - 6 Pairs
-        </div>
+            <div class="cart-item-container" id="creditCardDetails" style="display: none;">
+              <h3 class="payment-summary-title">Enter Your Card Details</h3>
+              <form class="card-detail-form">
+                <div>
+                  <label  for="cardNumber">Card Number:</label>                  
+                  <input type="text" id="cardNumber">
+                </div>
+                 <div>
+                  <label for="expirationDate">Expiration Date:</label>                
+                 <input type="text" id="expirationDate">
+                </div>
+                <div>
+                  <label for="cvv">CVV:</label>                   
+                 <input type="text" id="cvv">
+                </div>                  
+              </form>
+              <input type="button" value="Validate your card" class="button-save-billing-address">
+              </div>
 
-        <div class="product-info">
-          Quantity: 1
-        </div>
-
-        <img class="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg">
-
-        <div class="progress-labels-container">
-          <div class="progress-label">
-            Preparing
-          </div>
-          <div class="progress-label current-status">
-            Shipped
-          </div>
-          <div class="progress-label">
-            Delivered
-          </div>
-        </div>
-
-        <div class="progress-bar-container">
-          <div class="progress-bar"></div>
-        </div>
+          </div>          
+          <div class="payment-summary js-payment-summary"> </div>
+         </div>
       </div>
-    </div>
+    </section>
+    <!-- ***** Customer Orders Area Ends ***** -->   
+      
     <!-- ***** Subscribe Area Starts ***** -->
     <div class="subscribe">
         <div class="container">
@@ -213,10 +265,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                       <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -291,7 +343,9 @@ https://templatemo.com/tm-571-hexashop
         });
 
     </script>
-
+ <script type ="module" src="assets/js/checkout/hexa.js"></script> 
+ <script type="module" src="assets/js/checkout/checkout.js"></script>
+ <script type="module" src="assets/js/checkout/cardDetails.js"></script>
   </body>
 
 </html>

@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+
+<%@ page import="dao.ProductDAO"%>
+<%@ page import="entity.Product"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@page import="java.util.ArrayList"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+    
+ <%
+ 	String productCategory = request.getParameter("category"); 	
+ 	 	
+ 	pageContext.setAttribute("list", ProductDAO.getProductByCategory(productCategory));
+ 
+ %>
 <html lang="en">
 
   <head>
@@ -53,21 +67,27 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="index.jsp" class="logo">
                             <img src="assets/images/Logo-1.png">
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="index.html" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="products-cookware.html?category=Cookware">Cookware</a></li>
-                            <li class="scroll-to-section"><a href="products-bakeware.html?category=Bakeware">Bakeware</a></li>
-                            <li class="scroll-to-section"><a href="products-tabletop.html?category=Tabletop">TableTop</a></li>
-                            <li class="scroll-to-section"><a href="products-accessories.html?category=Accessories">Accessories</a></li> 
-                            <li class="scroll-to-section"><a href="about.html">About Us</a></li>
-                            <li class="scroll-to-section"><a href="contact.html">Contact Us</a></li>
-                            <li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-                            <li class="scroll-to-section"><a href="checkout.html">
+                           <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+							<li class="scroll-to-section"><a
+								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
+							<li class="scroll-to-section"><a
+								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
+							<li class="scroll-to-section"><a
+								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<li class="scroll-to-section"><a href="about.jsp">About
+									Us</a></li>
+							<li class="scroll-to-section"><a href="contact.jsp">Contact
+									Us</a></li>
+							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+							<li class="scroll-to-section"><a href="checkout.jsp">
                                 <div class="cart-quantity js-cart-quantity">0</div>                                       
                                 <img class="cart-icon" src="assets/icons/cart-icon.png">
                             </a></li>                             
@@ -112,8 +132,35 @@ https://templatemo.com/tm-571-hexashop
             </div>
         </div>
         <div class="container">
-            <div class="row js-products-grid ">               
-                
+            <div class="row js-products-grid ">      
+            <c:forEach items="${list}" var="product">         
+             <div class="col-lg-4">
+        <div class="item">
+            <div class="thumb">
+                <div class="hover-content">
+                   <ul>
+                        <li><a href="single-product.jsp?productId=${product.id}"><i class="fa fa-eye"></i></a></li>
+                        <li><a href="single-product.jsp?productId=${product.id}"><i class="fa fa-star"></i></a></li>
+                        <li><a><i class="fa fa-shopping-cart button-primary js-add-to-cart" data-product-id="${product.id}"></i></a></li>
+                    </ul>
+                </div>
+                <img src="assets/images/${product.image}" alt="">
+            </div>
+            <div class="down-content">
+                <h4>${product.brand}</h4>
+                <span>${product.name}</span>
+                <span>$${product.price}</span>
+                <ul class="stars">
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>         
+    </c:forEach>
             </div>
             <div class="col-lg-12">
                 <div class="pagination">
@@ -159,10 +206,10 @@ https://templatemo.com/tm-571-hexashop
                 <div class="col-lg-3">
                     <h4>SHOPPING WITH US</h4>
                     <ul>
-                        <li><a href="products-accessories.html?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.html?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.html?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.html?category=Accessories">Accessories</a></li>
+                      <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3">
@@ -184,7 +231,7 @@ https://templatemo.com/tm-571-hexashop
                 </div>
                 <div class="col-lg-12">
                     <div class="under-footer">
-                        <p>Copyright © 2025 Kitchenia Co, Ltd. All Rights Reserved. 
+                        <p>Copyright Â© 2025 Kitchenia Co, Ltd. All Rights Reserved. 
                         <p>Made with <i class="fa fa-heart"></i> by BE5</p>
                         <ul>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -244,7 +291,7 @@ https://templatemo.com/tm-571-hexashop
      const category = "Cookware";
   
    </script>
-    <script type ="module" src="assets/js/checkout/hexa.js"></script> 
+    
   </body>
 
 </html>

@@ -6,13 +6,30 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Product"%>
 <%@ page import="dao.ProductDAO"%>
+<%@page import="dao.CategoryDAO"%>
+<%@page import="entity.Category"%>
+<%@page import="java.util.List"%>
 
 
 <%
-ProductDAO productDAO = new ProductDAO();
+//Show all categories from menu bar
+CategoryDAO categoryDao = new CategoryDAO();
+List<Category> categories = categoryDao.showCategories();
+pageContext.setAttribute("categories", categories);
 
-pageContext.setAttribute("list", productDAO.getAllProducts());
+//Check if category ID is provided by client
+String categoryId = request.getParameter("categoryId");
 
+if (categoryId != null) {
+	List<Product> categoryProducts = categoryDao.getProductByCategoryId(categoryId);
+	pageContext.setAttribute("categoryProducts", categoryProducts);
+} else {
+	//Get lastest products for each category
+	for (Category category : categories) {
+		List<Product> latestProducts = categoryDao.getLatestProductsByCategoryId(category.getId());
+		pageContext.setAttribute("latestProducts_" + category.getId(), latestProducts);
+	}
+}
 %>
 
 
@@ -78,17 +95,15 @@ https://templatemo.com/tm-571-hexashop
 							src="assets/images/Logo-1.png">
 						</a>
 						<!-- ***** Logo End ***** -->
-						<!-- ***** Menu Start ***** -->
+						<!-- ***** Category Menu Start & Category's products href link ***** -->
 						<ul class="nav">
 							<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-							<li class="scroll-to-section"><a
-								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
-							<li class="scroll-to-section"><a
-								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+							<c:forEach items="${categories}" var="category">
+								<li class="scroll-to-section"><a
+									href="index.jsp?categoryId=${category.id}">${category.name}</a></li>
+							</c:forEach>
+							<!-- end category menu -->
+
 							<li class="scroll-to-section"><a href="about.jsp">About
 									Us</a></li>
 							<li class="scroll-to-section"><a href="contact.jsp">Contact
@@ -114,6 +129,7 @@ https://templatemo.com/tm-571-hexashop
 	<div class="main-banner" id="top">
 		<div class="container-fluid">
 			<div class="row">
+			
 				<div class="col-lg-6">
 					<div class="left-content">
 						<div class="thumb">
@@ -121,7 +137,7 @@ https://templatemo.com/tm-571-hexashop
 								<h4>Kitchenia</h4>
 								<span>Trusted Brands For Every Kitchen</span>
 								<div class="main-border-button">
-									<a href="products.html">Shop Now</a>
+									<a href="all-products.jsp">Shop Now</a>
 								</div>
 							</div>
 							<img src="assets/images/left-banner-image1.jpeg"
@@ -129,6 +145,7 @@ https://templatemo.com/tm-571-hexashop
 						</div>
 					</div>
 				</div>
+				
 				<div class="col-lg-6">
 					<div class="right-content">
 						<div class="row">
@@ -152,6 +169,7 @@ https://templatemo.com/tm-571-hexashop
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
@@ -172,6 +190,7 @@ https://templatemo.com/tm-571-hexashop
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
@@ -192,6 +211,7 @@ https://templatemo.com/tm-571-hexashop
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-lg-6">
 								<div class="right-first-image">
 									<div class="thumb">
@@ -212,6 +232,7 @@ https://templatemo.com/tm-571-hexashop
 									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -220,217 +241,291 @@ https://templatemo.com/tm-571-hexashop
 	</div>
 	<!-- ***** Main Banner Area End ***** -->
 
+
 	<!-- ***** Cookware Area Starts ***** -->
-	<section class="section" id="men">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="section-heading">
-						<h2>Cookware</h2>
-						<span> Check back here for the newest offerings in quality
+	<c:if test="${not empty latestProducts_1}">
+		<section class="section" id="men">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="section-heading">
+							<h2>Cookware</h2>
+							<span> Check back here for the newest offerings in quality
 							cookware</span> <a class="section-heading-discover-more"
 							href="products-accessories.jsp?category=Cookware"><span>Discover
 								More</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="men-item-carousel">
-						<div class="owl-men-item owl-carousel">
-							<c:forEach items="${list}" var="product" begin="0" end="3">
-								<div class="item">
-									<div class="thumb">
-										<div class="hover-content">
-											<ul>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-eye"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-star"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-shopping-cart"></i></a></li>
-											</ul>
-										</div>
-										<img src="assets/images/${product.image}" alt="cookware">
-									</div>
-									<div class="down-content">
-
-										<h4>${product.brand}</h4>
-										<span>${product.name}</span> <span>$${product.price}</span>
-										<ul class="stars">
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-								</div>
-							</c:forEach>
-
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+			<div class="container">
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="men-item-carousel">
+							<div class="owl-men-item owl-carousel">
+								<c:forEach items="${latestProducts_1}" var="product">
+									<div class="item">
+										<div class="thumb">
+											<div class="hover-content">
+												<ul>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-eye"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-star"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</ul>
+											</div>
+											<img src="assets/images/${product.image}" alt="cookware">
+										</div>
+										<div class="down-content">
+
+											<h4>${product.brand}</h4>
+											<span>${product.name}</span> <span>$${product.price}</span>
+											<ul class="stars">
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</c:if>
 	<!-- ***** Cookware Area Ends ***** -->
 
 	<!-- ***** Bakeware Area Starts ***** -->
-	<section class="section" id="women">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="section-heading">
-						<h2>Bakeware</h2>
-						<span>Craft, bake, and delight with our exquisite bakeware
-							collection.</span> <a class="section-heading-discover-more"
-							href="products-accessories.jsp?category=Bakeware"><span>Discover
-								More</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="women-item-carousel">
-						<div class="owl-women-item owl-carousel">
-							<c:forEach items="${list}" var="product" begin="9" end="13">
-								<div class="item">
-									<div class="thumb">
-										<div class="hover-content">
-											<ul>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-eye"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-star"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-shopping-cart"></i></a></li>
-											</ul>
-										</div>
-										<img src="assets/images/${product.image}" alt="cookware">
-									</div>
-									<div class="down-content">
-
-										<h4>${product.brand}</h4>
-										<span>${product.name}</span> <span>$${product.price}</span>
-										<ul class="stars">
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-								</div>
-							</c:forEach>
+	<c:if test="${not empty latestProducts_2}">
+		<section class="section" id="women">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="section-heading">
+							<h2>Bakeware</h2>
+							<span>Craft, bake, and delight with our exquisite bakeware
+								collection.</span> <a class="section-heading-discover-more"
+								href="products-accessories.jsp?category=Bakeware"><span>Discover
+									More</span></a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="women-item-carousel">
+							<div class="owl-women-item owl-carousel">
+								<c:forEach items="${latestProducts_2}" var="product">
+									<div class="item">
+										<div class="thumb">
+											<div class="hover-content">
+												<ul>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-eye"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-star"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</ul>
+											</div>
+											<img src="assets/images/${product.image}" alt="cookware">
+										</div>
+										<div class="down-content">
+
+											<h4>${product.brand}</h4>
+											<span>${product.name}</span> <span>$${product.price}</span>
+											<ul class="stars">
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</c:if>
 	<!-- ***** Bakeware Area Ends ***** -->
 
 	<!-- ***** Tabletop Area Starts ***** -->
-	<section class="section" id="kids">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="section-heading">
-						<h2>Tabletop</h2>
-						<span>When you’ve worked hard in the kitchen to achieve
-							culinary perfection, you deserve to show it off magnificently.</span> <a
-							class="section-heading-discover-more"
-							href="products-accessories.jsp?category=Tabletop"><span>Discover
-								More</span></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="kid-item-carousel">
-						<div class="owl-kid-item owl-carousel">
-							<c:forEach items="${list}" var="product" begin="19" end="22">
-								<div class="item">
-									<div class="thumb">
-										<div class="hover-content">
-											<ul>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-eye"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-star"></i></a></li>
-												<li><a href="single-product.jsp?productId=${product.id}"><i
-														class="fa fa-shopping-cart"></i></a></li>
-											</ul>
-										</div>
-										<img src="assets/images/${product.image}" alt="tabletop">
-									</div>
-									<div class="down-content">
-										<h4>${product.brand}</h4>
-										<span>${product.name}</span> <span>$${product.price}</span>
-										<ul class="stars">
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-											<li><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-								</div>
-							</c:forEach>
+	<c:if test="${not empty latestProducts_3}">
+		<section class="section" id="kids">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="section-heading">
+							<h2>Tabletop</h2>
+							<span>When you’ve worked hard in the kitchen to achieve
+								culinary perfection, you deserve to show it off magnificently.</span> <a
+								class="section-heading-discover-more"
+								href="products-accessories.jsp?category=Tabletop"><span>Discover
+									More</span></a>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- ***** Tabletop Area Ends ***** -->
-
-	<!-- ***** Accessories Area Starts ***** -->
-	<section class="section" id="kids">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="section-heading">
-						<h2>Accessories</h2>
-						<span>Slice, Dice, and Savour with Hexa</span> <a
-							class="section-heading-discover-more"
-							href="products-accessories.jsp?category=Accessories"><span>Discover
-								More</span></a>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="kid-item-carousel">
+							<div class="owl-kid-item owl-carousel">
+								<c:forEach items="${latestProducts_3}" var="product">
+									<div class="item">
+										<div class="thumb">
+											<div class="hover-content">
+												<ul>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-eye"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-star"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</ul>
+											</div>
+											<img src="assets/images/${product.image}" alt="tabletop">
+										</div>
+										<div class="down-content">
+											<h4>${product.brand}</h4>
+											<span>${product.name}</span> <span>$${product.price}</span>
+											<ul class="stars">
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="kid-item-carousel">
-						<div class="owl-kid-item owl-carousel">
-						<c:forEach items="${list}" var="product" begin="28" end="31">
+		</section>
+	</c:if>
+	<!-- ***** Tabletop Area Ends ***** -->
+
+	<!-- ***** Accessories Area Starts ***** -->
+	<c:if test="${not empty latestProducts_4}">
+
+		<section class="section" id="kids">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="section-heading">
+							<h2>Accessories</h2>
+							<span>Slice, Dice, and Savour with Hexa</span> <a
+								class="section-heading-discover-more"
+								href="products-accessories.jsp?category=Accessories"><span>Discover
+									More</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="kid-item-carousel">
+							<div class="owl-kid-item owl-carousel">
+								<c:forEach items="${latestProducts_4}" var="product">
+									<div class="item">
+										<div class="thumb">
+											<div class="hover-content">
+												<ul>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-eye"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-star"></i></a></li>
+													<li><a
+														href="single-product.jsp?productId=${product.id}"><i
+															class="fa fa-shopping-cart"></i></a></li>
+												</ul>
+											</div>
+											<img src="assets/images/${product.image}" alt="accessories">
+										</div>
+										<div class="down-content">
+											<h4>${product.brand}</h4>
+											<span>${product.name}</span> <span>$${product.price}</span>
+											<ul class="stars">
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+											</ul>
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</c:if>
+	<!-- ***** Accessories Area Ends ***** -->
+
+
+	<!-- *****CATEGORY Product Listing Area Starts ***** -->
+	<c:if test="${not empty categoryProducts}">
+		<section class="section" id="products">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-heading">
+							<h2>Unleash Your Baking Potential</h2>
+							<span>Craft, bake, and delight with our exquisite bakeware
+								collection.</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<c:forEach items="${categoryProducts}" var="product">
+						<div class="col-lg-4">
 							<div class="item">
 								<div class="thumb">
 									<div class="hover-content">
 										<ul>
-											<li><a href="single-product.jsp?productId=${product.id}"><i
+											<li><a href="single-product.html"><i
 													class="fa fa-eye"></i></a></li>
-											<li><a href="single-product.jsp?productId=${product.id}"><i
+											<li><a href="single-product.html"><i
 													class="fa fa-star"></i></a></li>
-											<li><a href="single-product.jsp?productId=${product.id}"><i
+											<li><a href="single-product.html"><i
 													class="fa fa-shopping-cart"></i></a></li>
 										</ul>
 									</div>
-									<img src="assets/images/${product.image}" alt="accessories">
+									<img src="assets/images/${product.image}" alt="">
 								</div>
 								<div class="down-content">
 									<h4>${product.brand}</h4>
-									<span>${product.name}</span> <span>$${product.price}</span>
+									<span>${product.name}</span> <span>${product.price}</span>
 									<ul class="stars">
 										<li><i class="fa fa-star"></i></li>
 										<li><i class="fa fa-star"></i></li>
@@ -440,14 +535,26 @@ https://templatemo.com/tm-571-hexashop
 									</ul>
 								</div>
 							</div>
-							</c:forEach>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="pagination">
+							<ul>
+								<li><a href="#"><</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">></a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- ***** Accessories Area Ends ***** -->
+		</section>
+	</c:if>
+	<!-- ***** CATEGORY Product Listing Area Ends ***** -->
 
 	<!-- ***** Social Area Starts ***** -->
 	<section class="section" id="social">
@@ -612,10 +719,10 @@ https://templatemo.com/tm-571-hexashop
 				<div class="col-lg-3">
 					<h4>SHOPPING WITH US</h4>
 					<ul>
-						   <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
+						<li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
+						<li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
+						<li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
+						<li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-3">

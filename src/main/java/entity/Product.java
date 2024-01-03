@@ -7,7 +7,6 @@ public class Product {
 	private String brand;
 	private double price;
 	private String image;
-	private String category;
 	private int quantity;
 	private String description;
 	
@@ -15,20 +14,22 @@ public class Product {
 	public Product() {
 		super();
 	}
+	
+	
 
 
-	public Product(int id, String name, String brand, double price, String image, String category, int quantity,
-			String description) {
+	public Product(int id, String name, String brand, double price, String image, int quantity, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
 		this.image = image;
-		this.category = category;
 		this.quantity = quantity;
 		this.description = description;
 	}
+
+
 
 
 	public int getId() {
@@ -66,7 +67,7 @@ public class Product {
 	}
 
 
-	public void setPriceCents(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -78,16 +79,6 @@ public class Product {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-
-	public String getCategory() {
-		return category;
-	}
-
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 

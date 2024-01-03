@@ -135,9 +135,8 @@ https://templatemo.com/tm-571-hexashop
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section-heading">
-							<h2>Unleash Your Baking Potential</h2>
-							<span>Craft, bake, and delight with our exquisite bakeware
-								collection.</span>
+							<h2>Elevate Your Culinary Experience with Kitchenia</h2>
+							<span>Every dish, whether a multi-course gourmet delight or a classic spag-bol, deserves the finest tools.</span>
 						</div>
 					</div>
 				</div>

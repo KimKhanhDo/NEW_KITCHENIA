@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!-- ***** Main Banner Area Start ***** -->
 <div class="main-banner" id="top" style="margin-top: -40px;">
 	<div class="container-fluid">
@@ -9,11 +11,9 @@
 			<!-- Search section -->
 			<form action="Home">
 				<div class="input-group rounded" style="max-width: 400px;">
-					<input type="search" class="form-control rounded" type="text"
+					<input type="hidden" name="action" value="SEARCH" /> <input type="search" class="form-control rounded" type="text"
 						name="searchField" placeholder="Search" aria-label="Search"
 						aria-describedby="search-addon" />
-						 <input type="hidden"
-						name="action" value="SEARCH" />
 					<button type="submit" class="input-group-text border-0"
 						id="search-addon"
 						style="background-color: #DC5434; border-color: #DC5434;">
@@ -32,7 +32,7 @@
 							<h4>Kitchenia</h4>
 							<span>Trusted Brands For Every Kitchen</span>
 							<div class="main-border-button">
-								<a href="all-products.jsp">Shop Now</a>
+								<a href="Home?action=SHOW_ALL">Shop Now</a>
 							</div>
 						</div>
 						<img src="assets/images/left-banner-image1.jpeg" alt="Left Banner">
@@ -54,7 +54,7 @@
 										<div class="inner">
 											<h4>Cookware</h4>
 											<div class="main-border-button">
-												<a href="products-accessories.jpeg?category=Cookware">Discover
+												<a href="Home?action=SHOW_ALL">Discover
 													More</a>
 											</div>
 										</div>
@@ -75,7 +75,7 @@
 										<div class="inner">
 											<h4>Bakeware</h4>
 											<div class="main-border-button">
-												<a href="products-accessories.jsp?category=Bakeware">Discover
+												<a href="Home?action=SHOW_ALL">Discover
 													More</a>
 											</div>
 										</div>
@@ -96,7 +96,7 @@
 										<div class="inner">
 											<h4>Tabletop</h4>
 											<div class="main-border-button">
-												<a href="products-accessories.jsp?category=Tabletop">Discover
+												<a href="Home?action=SHOW_ALL">Discover
 													More</a>
 											</div>
 										</div>
@@ -117,7 +117,7 @@
 										<div class="inner">
 											<h4>Accessories</h4>
 											<div class="main-border-button">
-												<a href="products-accessories.jsp?category=Accessories">Discover
+												<a href="Home?action=SHOW_ALL">Discover
 													More</a>
 											</div>
 										</div>

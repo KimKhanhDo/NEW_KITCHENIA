@@ -33,11 +33,6 @@
 
 <link rel="stylesheet" href="assets/css/lightbox.css">
 <link rel="stylesheet" href="assets/css/general.css">
-<!--
-
-https://templatemo.com/tm-571-hexashop
-
--->
 </head>
 
 <body>

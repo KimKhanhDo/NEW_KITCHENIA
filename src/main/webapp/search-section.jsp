@@ -47,7 +47,11 @@ https://templatemo.com/tm-571-hexashop
 
 <jsp:include page="header-section.jsp" />
 
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> refs/remotes/origin/master
 	<!-- ***** Main Banner Area Start ***** -->
 	<div class="page-heading" id="top">
 		<div class="container">

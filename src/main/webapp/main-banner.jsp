@@ -11,11 +11,10 @@
 			<!-- Search section -->
 			<form action="Home">
 				<div class="input-group rounded" style="max-width: 400px;">
-				<input type="hidden" name="action" value="SEARCH" />
-					<input type="search" class="form-control rounded" type="text"
+
+					<input type="hidden" name="action" value="SEARCH" /> <input type="search" class="form-control rounded" type="text"
 						name="searchField" placeholder="Search" aria-label="Search"
 						aria-describedby="search-addon" />
-						 
 					<button type="submit" class="input-group-text border-0"
 						id="search-addon"
 						style="background-color: #DC5434; border-color: #DC5434;">
@@ -56,7 +55,7 @@
 										<div class="inner">
 											<h4>Cookware</h4>
 											<div class="main-border-button">
-													<a href="Home?action=SHOW_ALL">Discover
+												<a href="Home?action=SHOW_ALL">Discover
 													More</a>
 											</div>
 										</div>
@@ -118,8 +117,9 @@
 									<div class="hover-content">
 										<div class="inner">
 											<h4>Accessories</h4>
-											<div class="main-border-button">
-													<a href="Home?action=SHOW_ALL">Discover
+											<div class="main-border-button"><
+												<a href="Home?action=SHOW_ALL">Discover
+
 													More</a>
 											</div>
 										</div>

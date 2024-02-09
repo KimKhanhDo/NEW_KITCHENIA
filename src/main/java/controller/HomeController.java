@@ -38,7 +38,6 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-
 			String action = request.getParameter("action");
 			if (action == null) {
 				action = "DEFAULT";
@@ -48,11 +47,7 @@ public class HomeController extends HttpServlet {
 			case "SEARCH": {
 				getSearchedProducts(request, response);
 				break;
-			}
-			case "SHOW_ALL": {
-				showAllProducts(request, response);
-				break;
-			}
+			}		
 			case "SHOW_PRODUCT_BY_CATEGORY": {
 				getProductByCategory(request, response);
 				break;
@@ -63,12 +58,14 @@ public class HomeController extends HttpServlet {
 				
 				break;
 			}
-			
+			case "SHOW_ALL": {
+				showAllProducts(request, response);
+				break;
+			}
+
 			default:
 				getLastestHomePage(request, response);
 			}
-
-		
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CategoryDAO;
 import dao.ProductDAO;
@@ -28,18 +29,11 @@ public class HomeController extends HttpServlet {
 	List<Product> products;
 	List<Category> categories;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
 	public HomeController() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -58,7 +52,14 @@ public class HomeController extends HttpServlet {
 			case "SHOW_PRODUCT_BY_CATEGORY": {
 				getProductByCategory(request, response);
 				break;
+			}case "LOGOUT": {
+				HttpSession session = request.getSession();
+				session.invalidate();
+				request.getRequestDispatcher("logout.jsp").forward(request, response);
+				
+				break;
 			}
+			
 			default:
 				getLastestHomePage(request, response);
 			}
@@ -70,11 +71,7 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-
+	
 	private void dispatchAttributeToView(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");

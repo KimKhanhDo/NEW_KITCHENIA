@@ -107,47 +107,7 @@ a.text-body {
 	</div>
 	<!-- ***** Preloader End ***** -->
 
-	<!-- ***** Header Area Start ***** -->
-	<header class="header-area header-sticky">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<nav class="main-nav">
-						<!-- ***** Logo Start ***** -->
-						<a href="Home" class="logo"> <img
-							src="assets/images/Logo-1.png">
-						</a>
-						<!-- ***** Logo End ***** -->
-						<!-- ***** Menu Start ***** -->
-						<ul class="nav">
-							<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-							<li class="scroll-to-section"><a
-								href="products-cookware.html">Cookware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-bakeware.html">Bakeware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-tabletop.html">Tabletop</a></li>
-							<li class="scroll-to-section"><a
-								href="products-tabletop.html">Accessories</a></li>
-							<li class="scroll-to-section"><a href="about.html">About
-									Us</a></li>
-							<li class="scroll-to-section"><a href="contact.html">Contact
-									Us</a></li>
-							<li class="scroll-to-section"><a href="explore.html">Explore</a></li>
-							<li class="scroll-to-section"><a href="checkout.html">
-									<div class="cart-quantity js-cart-quantity">0</div> <img
-									class="cart-icon" src="assets/icons/cart-icon.png">
-							</a></li>
-						</ul>
-						<a class='menu-trigger'> <span>Menu</span>
-						</a>
-						<!-- ***** Menu End ***** -->
-					</nav>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- ***** Header Area End ***** -->
+
 
 	<!-- ***** Main Content Start ***** -->
 	<section class="vh-100">
@@ -163,8 +123,7 @@ a.text-body {
 					<div class="card text-black"">
 						<div class="card-body p-md-5">
 							<div class="row justify-content-center">
-								<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">SIGN
-									UP</p>
+								<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">SIGN UP</p>
 
 								<div style="margin-top: -20px; margin-bottom: 30px;">
 									<c:if test="${not empty param.errorMessage}">
@@ -174,84 +133,21 @@ a.text-body {
 
 								<!-- FORM start -->
 								<form action="Register" method="POST" class="mx-1 mx-md-4">
+								<input type="text" name="ACTION" value="submitVerifyCode" hidden="true">								
 									<div class="form-row mb-4">
 										<div class="col-md-6">
 											<div class="form-outline">
-												<label class="form-label" for="form3Example3">First
-													Name*</label> <input type="text" name="firstName"
+												<label class="form-label" for="form3Example3">Verify code</label>
+												 <input type="text" name="authcode"
 													id="form3Example1c" class="form-control" required />
 											</div>
-
-										</div>
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example3">Last
-													Name*</label> <input type="text" name="lastName"
-													id="form3Example1c" class="form-control" required />
-											</div>
-										</div>
+										</div>										
 									</div>
-
-									<div class="form-row mb-4">
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example3">User
-													Name*</label> <input type="text" name="username"
-													id="form3Example1c" class="form-control" required />
-											</div>
-										</div>
-
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example3">Phone
-													Number*</label> <input type="tel" name="phoneNo"
-													id="form3Example1c" class="form-control" required />
-											</div>
-										</div>
+									<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">									   
+									    <button type="submit" class="btn btn-primary btn-lg" onclick="validateAgreement()">Next</button>
 									</div>
-
-									<div class="form-row mb-4">
-										<div class="col-md-12">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example3c">Email*</label>
-												<input type="email" name="email" id="form3Example3c"
-													class="form-control" required />
-											</div>
-										</div>
-									</div>
-
-									<div class="form-row mb-4">
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example4c">Password*</label>
-												<input type="password" name="password" id="password"
-													class="form-control" required />
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example4cd">Re-enter
-													Password*</label> <input type="password" name="reEnterPassword"
-													id="reEnterPassword" class="form-control" required
-													onkeyup="checkReEnterPassword()" />
-												<div id="errorMessage" style="color: red;"></div>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-check d-flex justify-content-center mb-5">
-										<label class="form-check-label" for="form2Example3"> I
-											agree to all statements in <a href="#!">Terms of service</a>
-											<input type="checkbox" id="agreeCheckbox" required />
-										</label>
-									</div>
-
-									<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-										<button type="submit" class="btn btn-primary btn-lg"
-											onclick="validateAgreement()">Register</button>
-									</div>
-
 								</form>
+								
 								<!-- FORM end -->
 							</div>
 						</div>

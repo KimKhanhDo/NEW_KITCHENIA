@@ -1,9 +1,3 @@
-<%@page import="java.util.List"%>
-<%@page import="dao.ProductDAO"%>
-<%@page import="entity.Product"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="dao.CategoryDAO"%>
-<%@page import="entity.Category"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -11,18 +5,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<%
-//Show all categories from menu bar
-CategoryDAO categoryDao = new CategoryDAO();
-List<Category> categories = categoryDao.showCategories();
-pageContext.setAttribute("categories", categories);
-
-// Show search result
-String productName = request.getParameter("searchField");
-pageContext.setAttribute("productBySearch", ProductDAO.getProductBySearch(productName));
-
-%>
 
 <head>
 
@@ -63,61 +45,9 @@ https://templatemo.com/tm-571-hexashop
 
 <body>
 
-	<!-- ***** Preloader Start ***** -->
-	<div id="preloader">
-		<div class="jumper">
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-	</div>
-	<!-- ***** Preloader End ***** -->
+<jsp:include page="header-section.jsp" />
 
-
-	<!-- ***** Header Area Start ***** -->
-	<header class="header-area header-sticky">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<nav class="main-nav">
-						<!-- ***** Logo Start ***** -->
-						<a href="index.jsp" class="logo"> <img
-							src="assets/images/Logo-1.png">
-						</a>
-						<!-- ***** Logo End ***** -->
-						<!-- ***** Menu Start ***** -->
-						<ul class="nav">
-							<li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-							<li class="scroll-to-section"><a
-								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
-							<li class="scroll-to-section"><a
-								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
-							<li class="scroll-to-section"><a href="about.jsp">About
-									Us</a></li>
-							<li class="scroll-to-section"><a href="contact.jsp">Contact
-									Us</a></li>
-							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
-							<li class="scroll-to-section"><a href="checkout.jsp">
-									<div class="cart-quantity js-cart-quantity">0</div> <img
-									class="cart-icon" src="assets/icons/cart-icon.png">
-							</a></li>
-
-
-						</ul>
-						<a class='menu-trigger'> <span>Menu</span>
-						</a>
-						<!-- ***** Menu End ***** -->
-					</nav>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- ***** Header Area End ***** -->
-
+	
 	<!-- ***** Main Banner Area Start ***** -->
 	<div class="page-heading" id="top">
 		<div class="container">
@@ -149,11 +79,11 @@ https://templatemo.com/tm-571-hexashop
 								<div class="thumb">
 									<div class="hover-content">
 										<ul>
-											<li><a href="single-product.html"><i
+											<li><a href="ProductDetail?productId=${product.id}"><i
 													class="fa fa-eye"></i></a></li>
-											<li><a href="single-product.html"><i
+											<li><a href="ProductDetail?productId=${product.id}"><i
 													class="fa fa-star"></i></a></li>
-											<li><a href="single-product.html"><i
+											<li><a href="ProductDetail?productId=${product.id}"><i
 													class="fa fa-shopping-cart"></i></a></li>
 										</ul>
 									</div>

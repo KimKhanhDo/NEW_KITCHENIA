@@ -49,6 +49,10 @@ public class HomeController extends HttpServlet {
 				getSearchedProducts(request, response);
 				break;
 			}
+			case "SHOW_ALL": {
+				showAllProducts(request, response);
+				break;
+			}
 			case "SHOW_PRODUCT_BY_CATEGORY": {
 				getProductByCategory(request, response);
 				break;
@@ -64,18 +68,18 @@ public class HomeController extends HttpServlet {
 				getLastestHomePage(request, response);
 			}
 
-			dispatchAttributeToView(request, response);
+		
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	
-	private void dispatchAttributeToView(HttpServletRequest request, HttpServletResponse response)
+	private void dispatchAttributeToView(HttpServletRequest request, HttpServletResponse response, String view)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		request.setAttribute("products", products);
+
+		RequestDispatcher rd = request.getRequestDispatcher(view);
+
 		request.setAttribute("categories", categories);
 		rd.forward(request, response);
 	}
@@ -84,20 +88,20 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 
 		String categoryId = request.getParameter("categoryId");
-
 		products = categoryDao.getProductByCategoryId(categoryId);
-		request.setAttribute("productsByCategory", products);
 
+		request.setAttribute("productsByCategory", products);
+		dispatchAttributeToView(request, response, "/index.jsp");
 	}
 
 	private void getSearchedProducts(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 
+		categories = categoryDao.showCategories();
 		String productName = request.getParameter("searchField");
-		RequestDispatcher rd = request.getRequestDispatcher("/search-section.jsp");
 
 		request.setAttribute("productBySearch", ProductDAO.getProductBySearch(productName));
-		rd.forward(request, response);
+		dispatchAttributeToView(request, response, "/search-section.jsp");
 	}
 
 	private void getLastestHomePage(HttpServletRequest request, HttpServletResponse response)
@@ -109,9 +113,16 @@ public class HomeController extends HttpServlet {
 			products = categoryDao.getLatestProductsByCategoryId(category.getId());
 			request.setAttribute("latestProducts_" + category.getId(), products);
 		}
-
+		dispatchAttributeToView(request, response, "/index.jsp");
 	}
-	
 
+	private void showAllProducts(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
 
+		categories = categoryDao.showCategories();
+		products = productDao.getAllProducts();
+
+		request.setAttribute("allProducts", products);
+		dispatchAttributeToView(request, response, "/all-products.jsp");
+	}
 }

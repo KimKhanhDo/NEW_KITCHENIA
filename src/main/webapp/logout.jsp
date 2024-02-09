@@ -102,12 +102,13 @@ a.text-body {
 						<div class="text-center text-lg-start mt-4 pt-2">
 							<button type="submit" name="loginButton"
 								class="btn btn-primary btn-lg"
-								style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+								style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+								New Account</button>
 						</div>
 
 						<div
 							class="divider d-flex justify-content-center align-items-center my-4">
-							<p class="fw-bold mx-3 mb-0">Already A Rewards Member</p>
+							<p class="fw-bold mx-3 mb-0">Logout Successfully</p>
 						</div>
 
 						<!-- Email input -->
@@ -133,21 +134,22 @@ a.text-body {
 									id="form2Example3" /> <label class="form-check-label"
 									for="form2Example3"> Remember me </label>
 							</div>
-							<a href="ResetPassword" class="text-body">Forgot password?</a>
+							<a href="#!" class="text-body">Forgot password?</a>
 						</div>
 
 						<div style="margin-top: 30px; margin-bottom: -20px;">
-							<c:if test="${!isLogin}">
+							<c:if test="${not empty errorMessage}">
 								<p style="color: red;">${errorMessage}</p>
 							</c:if>
 						</div>
 
 						<div class="text-center text-lg-start mt-4 pt-2">
-							<p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
-								<a href="register-step1-username.jsp" class="link-danger">Register</a>
+							<p class="small fw-bold mt-2 pt-1 mb-0">
+								Don't have an account? <a href="register-step1-username.jsp"
+									class="link-danger">Register</a>
 							</p>
-							<p class="small fw-bold mt-2 pt-1 mb-0">Back To Home Page
-								<a href="Home" class="link-danger">Kitchenia</a>
+							<p class="small fw-bold mt-2 pt-1 mb-0">
+								Back To Home Page <a href="Home" class="link-danger">Kitchenia</a>
 							</p>
 						</div>
 					</form>

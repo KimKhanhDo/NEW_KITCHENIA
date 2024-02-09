@@ -38,15 +38,15 @@
 						<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
 
 						<!-- LOGIN/ LOGOUT area start -->
-						<c:if test="${user.username == null }">
+						<c:if test="${sessionScope.userName == null }">
 							<li class="scroll-to-section"><a href="login.jsp"><i
 									class="fa fa-user fa-lg" aria-hidden="true"></i> </a></li>
 						</c:if>
 
 
-						<c:if test="${not empty user.username}">
+						<c:if test="${not empty sessionScope.userName}">
 							<li class="scroll-to-section dropdown"><a href="#"
-								data-toggle="dropdown"> <span>${user.username}</span>
+								data-toggle="dropdown"> <span>${sessionScope.userName}</span>
 									<i class="fa fa-caret-down"></i>
 							</a>
 								<ul class="dropdown-menu">
@@ -54,7 +54,7 @@
 											Order</a></li>
 									<li><a class="dropdown-item" href="changePassword.jsp">Change
 											Password</a></li>
-									<li><a class="dropdown-item" href=Home?action=LOGOUT>Log
+									<li><a class="dropdown-item" href="Authentication">Log
 											Out <i class="fa fa-sign-out" aria-hidden="true"></i>
 									</a></li>
 								</ul></li>

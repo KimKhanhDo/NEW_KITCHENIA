@@ -95,14 +95,16 @@ a.text-body {
 						class="img-fluid" alt="Sample image">
 				</div>
 				<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-
-					<!-- Your form content here -->
-					<form action="Login" method="post">
+				
+						<!-- Your form content here -->
+					<form action="Authentication" method="post">
+					
 
 						<div class="text-center text-lg-start mt-4 pt-2">
-							<button type="submit" name="loginButton"
-								class="btn btn-primary btn-lg"
+							<button type="submit" name="loginButton" class="btn btn-primary btn-lg"
 								style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+								
+
 						</div>
 
 						<div
@@ -133,26 +135,23 @@ a.text-body {
 									id="form2Example3" /> <label class="form-check-label"
 									for="form2Example3"> Remember me </label>
 							</div>
-							<a href="ResetPassword" class="text-body">Forgot password?</a>
+							<a href="#!" class="text-body">Forgot password?</a>
 						</div>
-
-						<div style="margin-top: 30px; margin-bottom: -20px;">
-							<c:if test="${!isLogin}">
+						
+							<div style="margin-top: 30px; margin-bottom: -20px;">
+							<c:if test="${not empty errorMessage}">
 								<p style="color: red;">${errorMessage}</p>
 							</c:if>
-						</div>
+							</div>
 
 						<div class="text-center text-lg-start mt-4 pt-2">
-							<p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
-								<a href="register-step1-username.jsp" class="link-danger">Register</a>
-							</p>
-							<p class="small fw-bold mt-2 pt-1 mb-0">Back To Home Page
-								<a href="Home" class="link-danger">Kitchenia</a>
+							<p class="small fw-bold mt-2 pt-1 mb-0">
+								Don't have an account? <a href="register.jsp" class="link-danger">Register</a>
 							</p>
 						</div>
 					</form>
-
-
+					
+					
 				</div>
 			</div>
 		</div>
@@ -207,8 +206,6 @@ a.text-body {
 					<div class="col-lg-12">
 						<div class="under-footer">
 							<p>Copyright Â© 2025 Kitchenia Co, Ltd. All Rights Reserved.
-
-
 							
 							<p>
 								Made with <i class="fa fa-heart"></i> by BE5

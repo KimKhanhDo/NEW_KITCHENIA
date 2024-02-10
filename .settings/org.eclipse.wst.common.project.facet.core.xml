@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="LOCAL WEB SERVER (TOMCAT)"/>
+  <runtime name="WEB SERVER LOCAL(TOMCAT 8.5)"/>
   <fixed facet="jst.web"/>
   <fixed facet="java"/>
   <fixed facet="wst.jsdt.web"/>

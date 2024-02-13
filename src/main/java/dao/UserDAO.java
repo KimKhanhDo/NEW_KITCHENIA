@@ -8,7 +8,6 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -16,7 +15,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import at.favre.lib.crypto.bcrypt.BCrypt.Verifyer;
@@ -24,133 +22,200 @@ import entity.User;
 import sql.connection.DBConnection;
 
 public class UserDAO {
-	public boolean doLogin(String email, String password) throws SQLException {
 
-		Connection connection = DBConnection.makeConnection();
-
-		String sql = "SELECT * FROM user WHERE email = ?";
-
-		PreparedStatement preStmt = connection.prepareStatement(sql);
-		preStmt.setString(1, email);
-
-		ResultSet resultSet = preStmt.executeQuery();
-
-		if (!resultSet.next()) {
-			return false;
+	private void closeResources(ResultSet resultSet, PreparedStatement preStmt, Connection connection) {
+		try {
+			if (resultSet != null) {
+				resultSet.close();
+			}
+			if (preStmt != null) {
+				preStmt.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); 
 		}
-
-		User user = new User();
-		user.setId(resultSet.getInt("id"));	
-		user.setPassword(resultSet.getString("password"));
-		user.setEmail(resultSet.getString("email"));
-		user.setFailedCount(resultSet.getInt("failedCount"));
-
-		if (!verifyPassword(password, user.getPassword())) {
-			updateFailedCount(user.getEmail());
-			return false;
-		}
-
-		if (user.getFailedCount() >= 4) {
-
-			return false;
-		}
-
-		return true;
 	}
 
-	public static boolean verifyPassword(String inputPassword, String hashedPassword) {
-		Verifyer verifier = BCrypt.verifyer();
-		BCrypt.Result result = verifier.verify(inputPassword.toCharArray(), hashedPassword);
+	public boolean doLogin(String email, String password) {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		ResultSet resultSet = null;
 
-		return result.verified;
-	}
+		try {
+			connection = DBConnection.makeConnection();
+			String sql = "SELECT * FROM user WHERE email = ?";
+			preStmt = connection.prepareStatement(sql);
+			preStmt.setString(1, email);
+			resultSet = preStmt.executeQuery();
 
-	public void updateFailedCount(String email) throws SQLException {
-		Connection connection = DBConnection.makeConnection();
-		String sql = "UPDATE user SET `failedCount` = failedCount + 1 WHERE email = ?";
+			if (!resultSet.next()) {
+				return false;
+			}
 
-		PreparedStatement preStmt = connection.prepareStatement(sql);
-		preStmt.setString(1, email);
-
-		preStmt.executeUpdate();
-
-	}
-
-	public User findUser(String email) throws SQLException {
-		Connection connection = DBConnection.makeConnection();
-		String sql = "SELECT * FROM user WHERE email = ?";
-		PreparedStatement preStmt = connection.prepareStatement(sql);
-		preStmt.setString(1, email);
-		ResultSet resultSet = preStmt.executeQuery();
-
-		if (resultSet.next()) {
 			User user = new User();
 			user.setId(resultSet.getInt("id"));
-			user.setFirst_name(resultSet.getString("first_name"));
-			user.setLast_name(resultSet.getString("last_name"));
-			user.setPhoneNumber(resultSet.getString("phoneNo"));
-			user.setUsername(resultSet.getString("username"));
 			user.setPassword(resultSet.getString("password"));
 			user.setEmail(resultSet.getString("email"));
 			user.setFailedCount(resultSet.getInt("failedCount"));
 
-			return user;
-		}
-		return null;
+			if (!verifyPassword(password, user.getPassword())) {
+				updateFailedCount(user.getEmail());
+				return false;
+			}
 
+			if (user.getFailedCount() >= 4) {
+				return false;
+			}
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			closeResources(resultSet, preStmt, connection);
+		}
 	}
 
-	public void registerNewUser(String first_name, String last_name, String phoneNo, String username, String email, String password)
-			throws SQLException {
-		Connection connection = DBConnection.makeConnection();
+	public static boolean verifyPassword(String inputPassword, String hashedPassword) {
+		Verifyer verifier = BCrypt.verifyer();
+		BCrypt.Result result = null;
+
+		try {
+			result = verifier.verify(inputPassword.toCharArray(), hashedPassword);
+			return result.verified;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public void updateFailedCount(String email) {
+		Connection connection = null;
 		PreparedStatement preStmt = null;
 
-		String SQL = "INSERT INTO user (first_name, last_name, phoneNo, username, email, password) VALUES (?,?,?,?,?,?);";
-		preStmt = connection.prepareStatement(SQL);
-		
-
-		preStmt.setString(1, first_name);
-		preStmt.setString(2, last_name);
-		preStmt.setString(3, phoneNo);
-		preStmt.setString(4, username);
-		preStmt.setString(5, email);
-		preStmt.setString(6, password);
-		
-		preStmt.executeUpdate();
-
+		try {
+			connection = DBConnection.makeConnection();
+			String sql = "UPDATE user SET `failedCount` = failedCount + 1 WHERE email = ?";
+			preStmt = connection.prepareStatement(sql);
+			preStmt.setString(1, email);
+			preStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(null, preStmt, connection);
+		}
 	}
 
-	public boolean isUsernameRegistered(String username) throws SQLException {
+	public User findUser(String email) {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		ResultSet resultSet = null;
 
-		Connection connection = DBConnection.makeConnection();
-		String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
-		PreparedStatement preStmt = connection.prepareStatement(sql);
+		try {
+			connection = DBConnection.makeConnection();
+			String sql = "SELECT * FROM user WHERE email = ?";
+			preStmt = connection.prepareStatement(sql);
+			preStmt.setString(1, email);
+			resultSet = preStmt.executeQuery();
 
-		preStmt.setString(1, username);
-		ResultSet resultSet = preStmt.executeQuery();
+			if (resultSet.next()) {
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setFirst_name(resultSet.getString("first_name"));
+				user.setLast_name(resultSet.getString("last_name"));
+				user.setPhoneNumber(resultSet.getString("phoneNo"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setEmail(resultSet.getString("email"));
+				user.setFailedCount(resultSet.getInt("failedCount"));
 
-		if (resultSet.next()) {
-			int count = resultSet.getInt(1);
-			return count > 0;
+				return user;
+			}
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeResources(resultSet, preStmt, connection);
 		}
-		return false;
 	}
-	
-	public boolean isEmailRegistered(String email) throws SQLException {
 
-		Connection connection = DBConnection.makeConnection();
-		String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
-		PreparedStatement preStmt = connection.prepareStatement(sql);
+	public void registerNewUser(String first_name, String last_name, String phoneNo, String username, String email,
+			String password) {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
 
-		preStmt.setString(1, email
-				);
-		ResultSet resultSet = preStmt.executeQuery();
+		try {
+			connection = DBConnection.makeConnection();
+			String SQL = "INSERT INTO user (first_name, last_name, phoneNo, username, email, password) VALUES (?,?,?,?,?,?);";
+			preStmt = connection.prepareStatement(SQL);
 
-		if (resultSet.next()) {
-			int count = resultSet.getInt(1);
-			return count > 0;
+			preStmt.setString(1, first_name);
+			preStmt.setString(2, last_name);
+			preStmt.setString(3, phoneNo);
+			preStmt.setString(4, username);
+			preStmt.setString(5, email);
+			preStmt.setString(6, password);
+
+			preStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources(null, preStmt, connection);
 		}
-		return false;
+	}
+
+	public boolean isUsernameRegistered(String username) {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = DBConnection.makeConnection();
+			String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+			preStmt = connection.prepareStatement(sql);
+			preStmt.setString(1, username);
+			resultSet = preStmt.executeQuery();
+
+			if (resultSet.next()) {
+				int count = resultSet.getInt(1);
+				return count > 0;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			closeResources(resultSet, preStmt, connection);
+		}
+	}
+
+	public boolean isEmailRegistered(String email) {
+		Connection connection = null;
+		PreparedStatement preStmt = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = DBConnection.makeConnection();
+			String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+			preStmt = connection.prepareStatement(sql);
+			preStmt.setString(1, email);
+			resultSet = preStmt.executeQuery();
+
+			if (resultSet.next()) {
+				int count = resultSet.getInt(1);
+				return count > 0;
+			}
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			closeResources(resultSet, preStmt, connection);
+		}
 	}
 
 	public boolean validateEmailPattern(String email) {
@@ -170,47 +235,73 @@ public class UserDAO {
 		return String.format("%06d", number);
 
 	}
-	
+
 	public boolean sendEmail(User user) throws MessagingException {
 		boolean test = false;
-		
-		String toEmail = user.getEmail();		
+
+		String toEmail = user.getEmail();
 		String fromEmail = "javaIsFun12@gmail.com";
 		String appPassword = "qxfv thym qgva pxvt";
-		
-		// setup properties for email provider 
-		Properties pr = new Properties(); 
-	    pr.setProperty("mail.smtp.host", "smtp.gmail.com");
-	    pr.setProperty("mail.smtp.socketFactory.port", "465");
-	    pr.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	    pr.setProperty("mail.smtp.auth", "true");
-	    pr.setProperty("mail.smtp.port", "465"); // Set port to 465 for SSL
-	    
-	    
-	    
-		//get session from mail api
+
+		// setup properties for email provider
+		Properties pr = new Properties();
+		pr.setProperty("mail.smtp.host", "smtp.gmail.com");
+		pr.setProperty("mail.smtp.socketFactory.port", "465");
+		pr.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		pr.setProperty("mail.smtp.auth", "true");
+		pr.setProperty("mail.smtp.port", "465"); // Set port to 465 for SSL
+
+		// get session from mail api
 		Session mailSession = Session.getDefaultInstance(pr, new javax.mail.Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(fromEmail, appPassword);
 			}
-					
+
 		});
-		
-		//set up the message 
-		MimeMessage mess = new MimeMessage(mailSession);
-		
-		mess.setFrom(new InternetAddress(fromEmail));
-		mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-		
-		mess.setSubject("User Email Verification");
-		mess.setText("Registration successfully. Please verify your account using this code: " + user.getCode());
-		
-		
-		//send email
-		Transport.send(mess);
-		test = true;
-		System.out.println("message sent successfully");
+
+		try {
+			// set up the message
+			MimeMessage mess = new MimeMessage(mailSession);
+
+			mess.setFrom(new InternetAddress(fromEmail));
+			mess.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+			mess.setSubject("User Email Verification");
+			mess.setText("Registration successfully. Please verify your account using this code: " + user.getCode());
+
+			// send email
+			Transport.send(mess);
+			test = true;
+			System.out.println("message sent successfully");
+		} catch (MessagingException e) {
+			// Handle MessagingException (e.g., log or throw a custom exception)
+			e.printStackTrace();
+		}
+
 		return test;
+	}
+
+	public void updatePassword(String newPassword, String email) {
+		try {
+			Connection connection = DBConnection.makeConnection();
+			String query = "UPDATE user SET password = ? WHERE email = ?";
+
+			// Hash the new password before updating it in the database
+
+			String encodedNewPassword = BCrypt.withDefaults().hashToString(6, newPassword.toCharArray());
+
+			try (PreparedStatement pst = connection.prepareStatement(query)) {
+				pst.setString(1, encodedNewPassword);
+				pst.setString(2, email);
+
+				pst.executeUpdate();
+
+				// Check on console
+				System.out.println("Password updated successfully");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

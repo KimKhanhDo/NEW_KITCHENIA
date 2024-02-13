@@ -125,7 +125,7 @@ public class RegisterController extends HttpServlet {
 			}
 			}
 
-		} catch (SQLException | MessagingException e) {
+		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 

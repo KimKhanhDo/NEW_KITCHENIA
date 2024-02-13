@@ -26,34 +26,29 @@ public class LoginController extends HttpServlet {
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			UserDAO userDAO = new UserDAO();
-			User user = null;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
+			 {
+		UserDAO userDAO = new UserDAO();
+		User user = null;
 
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
 
-			boolean isLogin;
+		boolean isLogin;
 
-			isLogin = userDAO.doLogin(email, password);
+		isLogin = userDAO.doLogin(email, password);
 
-			HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false);
 
-			if (isLogin) {
-				user = userDAO.findUser(email);
-				session.setAttribute("user", user);
-				response.sendRedirect("Home");
-			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-				request.setAttribute("isLogin", isLogin);
-				request.setAttribute("errorMessage", "Incorrect Email or Password");
-				rd.forward(request, response);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (isLogin) {
+			user = userDAO.findUser(email);
+			session.setAttribute("user", user);
+			response.sendRedirect("Home");
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			request.setAttribute("isLogin", isLogin);
+			request.setAttribute("errorMessage", "Incorrect Email or Password");
+			rd.forward(request, response);
 		}
 	}
 

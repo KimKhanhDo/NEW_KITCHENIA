@@ -128,7 +128,7 @@ public class ResetPasswordController extends HttpServlet {
 
 			request.setAttribute("email", request.getParameter("email"));
 			request.setAttribute("status", "success");
-			dispatcher = request.getRequestDispatcher("newPassword.jsp");
+			dispatcher = request.getRequestDispatcher("new-password.jsp");
 			dispatcher.forward(request, response);
 
 		} else {

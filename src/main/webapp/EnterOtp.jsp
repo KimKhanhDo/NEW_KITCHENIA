@@ -41,7 +41,7 @@
 	
 							<div class="panel-body">
 
-								<form id="register-form" action="ResetPasswordController?action=VALIDATE_OTP" role="form" autocomplete="off"
+								<form id="register-form" action="ResetPassword?action=VALIDATE_OTP" role="form" autocomplete="off"
 									class="form" method="post">
 
 									<div class="form-group">

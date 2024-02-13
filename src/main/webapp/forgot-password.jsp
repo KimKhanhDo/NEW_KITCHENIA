@@ -137,7 +137,7 @@ a.text-body {
 						</ol>
 					</div>
 					<form class="card mt-4"
-						action="ResetPasswordController?action=FORGOT_PASSWORD"
+						action="ResetPassword?action=FORGOT_PASSWORD"
 						method="POST">
 						<div class="card-body">
 							<div class="form-group">

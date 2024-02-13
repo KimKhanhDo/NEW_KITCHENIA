@@ -12,11 +12,12 @@ import entity.Product;
 import sql.connection.DBConnection;
 
 public class ProductDAO {
-
+	
 	public List<Product> getLastestProducts() throws SQLException {
 		Connection connection = null;
 		Statement stmt = null;
 		ResultSet resultSet = null;
+		List<Product> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -25,8 +26,6 @@ public class ProductDAO {
 			String sqlQuery = "SELECT * FROM product WHERE is_new = 1";
 			resultSet = stmt.executeQuery(sqlQuery);
 
-			List<Product> list = new ArrayList<>();
-
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("name");
@@ -40,7 +39,8 @@ public class ProductDAO {
 				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
 				list.add(product);
 			}
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (resultSet != null) {
 				resultSet.close();
@@ -52,6 +52,7 @@ public class ProductDAO {
 				connection.close();
 			}
 		}
+		return list;
 	}
 
 	public List<Product> getAllProducts() throws SQLException {
@@ -59,6 +60,7 @@ public class ProductDAO {
 		Connection connection = null;
 		Statement stmt = null;
 		ResultSet resultSet = null;
+		List<Product> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -66,7 +68,6 @@ public class ProductDAO {
 			stmt = connection.createStatement();
 			resultSet = stmt.executeQuery(SQL);
 
-			List<Product> list = new ArrayList<>();
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("name");
@@ -80,7 +81,8 @@ public class ProductDAO {
 				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
 				list.add(product);
 			}
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 
 			if (resultSet != null) {
@@ -93,6 +95,7 @@ public class ProductDAO {
 				connection.close();
 			}
 		}
+		return list;
 	}
 
 	public static Product getProductById(String productId) throws SQLException {
@@ -123,16 +126,22 @@ public class ProductDAO {
 				return product;
 			}
 			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		} finally {
-
-			if (resultSet != null) {
-				resultSet.close();
-			}
-			if (stmt != null) {
-				stmt.close();
-			}
-			if (connection != null) {
-				connection.close();
+			try {
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -141,6 +150,7 @@ public class ProductDAO {
 		Connection connection = null;
 		PreparedStatement preStmt = null;
 		ResultSet resultSet = null;
+		List<Product> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -149,7 +159,6 @@ public class ProductDAO {
 			preStmt.setString(1, "%" + productName + "%");
 			resultSet = preStmt.executeQuery();
 
-			List<Product> list = new ArrayList<>();
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("name");
@@ -163,7 +172,8 @@ public class ProductDAO {
 				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
 				list.add(product);
 			}
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
 
 		} finally {
 
@@ -177,6 +187,84 @@ public class ProductDAO {
 				connection.close();
 			}
 		}
+		return list;
+	}
+	
+	public static int getTotalPage() throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+
+			ps = conn.prepareStatement("SELECT COUNT(*) as total_product FROM product;");
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int totalProduct = rs.getInt("total_product");
+				return (int) Math.ceil((double) totalProduct / 9);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return 0;
+	}
+
+	public List<Product> getProductsByPage(int page) throws SQLException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		try {
+			conn = DBConnection.makeConnection();
+			ps = conn.prepareStatement("SELECT * FROM product LIMIT ?, ?;");
+			ps.setInt(1, (page - 1) * 9);
+			ps.setInt(2, 9);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String brand = rs.getString("brand");
+				double price = rs.getDouble("price");
+				String image = rs.getString("image");
+				int quantity = rs.getInt("quantity");
+				String description = rs.getString("description");
+				boolean is_new = rs.getBoolean("is_new");
+
+				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+
 	}
 
 }

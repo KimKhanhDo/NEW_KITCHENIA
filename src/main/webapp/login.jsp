@@ -133,7 +133,7 @@ a.text-body {
 									id="form2Example3" /> <label class="form-check-label"
 									for="form2Example3"> Remember me </label>
 							</div>
-							<a href="ResetPassword" class="text-body">Forgot password?</a>
+							<a href="forgot-password.jsp" class="text-body">Forgot password?</a>
 						</div>
 
 						<div style="margin-top: 30px; margin-bottom: -20px;">

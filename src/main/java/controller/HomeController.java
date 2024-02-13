@@ -119,7 +119,30 @@ public class HomeController extends HttpServlet {
 		categories = categoryDao.showCategories();
 		products = productDao.getAllProducts();
 
+		// Call doPagination --> set pagination attributes in the request
+		doPagination(request);
 		request.setAttribute("allProducts", products);
+
 		dispatchAttributeToView(request, response, "/all-products.jsp");
+	}
+
+	public void doPagination(HttpServletRequest request) throws ServletException, IOException {
+		try {
+			int currentPage = 1;
+			String page = request.getParameter("page");
+
+			if (page != null) {
+				currentPage = Integer.parseInt(request.getParameter("page"));
+			}
+
+			products = productDao.getProductsByPage(currentPage);
+
+			// Set the pagination attributes directly in the request
+			request.setAttribute("totalPage", ProductDAO.getTotalPage());
+			request.setAttribute("currentPage", currentPage);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

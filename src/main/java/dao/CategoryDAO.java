@@ -18,6 +18,7 @@ public class CategoryDAO {
 		Connection connection = null;
 		Statement stmt = null;
 		ResultSet resultSet = null;
+		List<Category> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -26,8 +27,6 @@ public class CategoryDAO {
 			String sqlQuery = "SELECT * FROM category ORDER BY priority;";
 			resultSet = stmt.executeQuery(sqlQuery);
 
-			List<Category> list = new ArrayList<>();
-
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String name = resultSet.getString("name");
@@ -35,7 +34,8 @@ public class CategoryDAO {
 				Category category = new Category(id, name, priority);
 				list.add(category);
 			}
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (resultSet != null) {
 				resultSet.close();
@@ -47,6 +47,7 @@ public class CategoryDAO {
 				connection.close();
 			}
 		}
+		return list;
 	}
 
 	public List<Product> getProductByCategoryId(String categoryId) throws SQLException {
@@ -54,6 +55,7 @@ public class CategoryDAO {
 		Connection connection = null;
 		PreparedStatement preStmt = null;
 		ResultSet resultSet = null;
+		List<Product> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -64,7 +66,6 @@ public class CategoryDAO {
 			preStmt.setString(1, categoryId);
 
 			resultSet = preStmt.executeQuery();
-			List<Product> list = new ArrayList<>();
 
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
@@ -79,7 +80,8 @@ public class CategoryDAO {
 				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
 				list.add(product);
 			}
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
 
 		} finally {
 			if (resultSet != null) {
@@ -92,6 +94,7 @@ public class CategoryDAO {
 				connection.close();
 			}
 		}
+		return list;
 	}
 
 	public List<Product> getLatestProductsByCategoryId(int categoryId) throws SQLException {
@@ -99,6 +102,7 @@ public class CategoryDAO {
 		Connection connection = null;
 		PreparedStatement preStmt = null;
 		ResultSet resultSet = null;
+		List<Product> list = new ArrayList<>();
 
 		try {
 			connection = DBConnection.makeConnection();
@@ -108,7 +112,6 @@ public class CategoryDAO {
 			preStmt.setInt(1, categoryId);
 
 			resultSet = preStmt.executeQuery();
-			List<Product> list = new ArrayList<>();
 
 			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
@@ -123,8 +126,8 @@ public class CategoryDAO {
 				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
 				list.add(product);
 			}
-			return list;
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (resultSet != null) {
 				resultSet.close();
@@ -136,5 +139,6 @@ public class CategoryDAO {
 				connection.close();
 			}
 		}
+		return list;
 	}
 }

@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,59 +45,12 @@ https://templatemo.com/tm-571-hexashop
     </head>
     
     <body>
-    
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    <!-- ***** Preloader End ***** -->
-    
+  
     
     <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a href="index.jsp" class="logo">
-                            <img src="assets/images/Logo-1.png">
-                        </a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-							<li class="scroll-to-section"><a
-								href="products-cookware.jsp?category=Cookware">Cookware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-bakeware.jsp?category=Bakeware">Bakeware</a></li>
-							<li class="scroll-to-section"><a
-								href="products-tabletop.jsp?category=Tabletop">TableTop</a></li>
-							<li class="scroll-to-section"><a
-								href="products-accessories.jsp?category=Accessories">Accessories</a></li>
-							<li class="scroll-to-section"><a href="about.jsp">About
-									Us</a></li>
-							<li class="scroll-to-section"><a href="contact.jsp">Contact
-									Us</a></li>
-							<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
-							<li class="scroll-to-section"><a href="checkout.jsp">
-                                <div class="cart-quantity js-cart-quantity">0</div>                                       
-                                <img class="cart-icon" src="assets/icons/cart-icon.png">
-                            </a></li>    
-                        </ul>             
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+    
+  <jsp:include page="header-section.jsp"/>
+  
     <!-- ***** Header Area End ***** -->
 
     <!-- ***** Main Banner Area Start ***** -->
@@ -247,62 +204,7 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Subscribe Area Ends ***** -->
 
     <!-- ***** Footer Start ***** -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="first-item">
-                        <div class="logo">
-                            <img src="assets/images/Logo-2-1.png" alt="hexashop ecommerce templatemo">
-                        </div>
-                        <ul>
-                            <li><a href="#">585 Malvern Rd Toorak VIC 3142</a></li>
-                            <li><a href="#">info@kitchenia.com.au</a></li>
-                            <li><a href="#">010-020-0340</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <h4>SHOPPING WITH US</h4>
-                    <ul>
-                       <li><a href="products-accessories.jsp?category=Cookware">Cookware</a></li>
-                        <li><a href="products-accessories.jsp?category=Bakeware">Bakeware</a></li>
-                        <li><a href="products-accessories.jsp?category=Tabletop">Tabletop</a></li>
-                        <li><a href="products-accessories.jsp?category=Accessories">Accessories</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4>ABOUT KITCHENIA</h4>
-                    <ul>
-                        <li><a href="index.html">Homepage</a></li>
-                        <li><a href="about.html">Our Story</a></li>
-                        <li><a href="explore.html">Kitchenia Magazine</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4>HERE TO HELP</h4>
-                    <ul>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="#">FAQ's</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Tracking ID</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <div class="under-footer">
-                        <p>Copyright © 2025 Kitchenia Co, Ltd. All Rights Reserved. 
-                        <p>Made with <i class="fa fa-heart"></i> by BE5</p>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+   	<jsp:include page="footer-section.jsp"/>
 
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>

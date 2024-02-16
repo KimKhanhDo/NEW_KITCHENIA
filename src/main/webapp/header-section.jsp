@@ -61,9 +61,9 @@
 						</c:if>
 						<!-- LOGIN/ LOGOUT area end -->
 
-						<li class="scroll-to-section"><a href="checkout.jsp">
-								<div class="cart-quantity js-cart-quantity">0</div> <img
-								class="cart-icon" src="assets/icons/cart-icon.png">
+						<li class="scroll-to-section"><a href="view-cart.jsp">								
+								<img class="cart-icon" src="assets/icons/cart-icon.png">
+								(${empty sessionScope.cart.getItems()? 0 : sessionScope.cart.getItems().size()})
 						</a></li>
 
 					</ul>

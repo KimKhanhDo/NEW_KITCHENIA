@@ -29,9 +29,8 @@ public class HomeController extends HttpServlet {
 	List<Product> products;
 	List<Category> categories;
 
-	
 	public HomeController() {
-		super();		
+		super();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,15 +46,16 @@ public class HomeController extends HttpServlet {
 			case "SEARCH": {
 				getSearchedProducts(request, response);
 				break;
-			}		
+			}
 			case "SHOW_PRODUCT_BY_CATEGORY": {
 				getProductByCategory(request, response);
 				break;
-			}case "LOGOUT": {
+			}
+			case "LOGOUT": {
 				HttpSession session = request.getSession();
 				session.invalidate();
 				request.getRequestDispatcher("logout.jsp").forward(request, response);
-				
+
 				break;
 			}
 			case "SHOW_ALL": {

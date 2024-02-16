@@ -93,8 +93,13 @@
 						<div class="ratting-caption">Quantity: ${product.quantity}</div>
 
 						<span>Description: ${product.description}</span>
+				<form action="Cart">
+					<input type="text" value="ADD_TO_CART" name=action hidden="true">
+					<input type="text" value="${product.id}" name="productId" hidden="true">
+					
 						<div class="quantity-content">
-							<div class="left-content">
+						
+							<div class="left-content">					
 								<h6>No. of Orders</h6>
 							</div>
 							<div class="right-content">
@@ -107,12 +112,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="total">
-							<h4>Total:</h4>
+				<div class="total">					
 							<div class="main-border-button">
-								<a href="#">Add To Cart</a>
+								<input type="submit" value="Add To Cart"/>
 							</div>
-						</div>
+					</div>
+				</form>
+				</div>
 
 					</div>
 				</div>

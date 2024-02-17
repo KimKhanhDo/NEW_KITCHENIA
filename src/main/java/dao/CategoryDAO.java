@@ -141,4 +141,88 @@ public class CategoryDAO {
 		}
 		return list;
 	}
+	
+
+	public static int getTotalPageByCategory(String categoryId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBConnection.makeConnection();
+
+			 ps = conn.prepareStatement("SELECT COUNT(*) as total_product FROM product p "
+                     + "JOIN category c ON p.category_id = c.id "
+                     + "WHERE c.id = ?;");
+			 
+			 ps.setInt(1, Integer.parseInt(categoryId));
+
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int totalProduct = rs.getInt("total_product");
+				return (int) Math.ceil((double) totalProduct / 6);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return 0;
+	}
+	
+	public List<Product> pagingProductByCategoryId(String categoryId, int page) throws SQLException {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Product> list = new ArrayList<Product>();
+		
+		try {
+			conn = DBConnection.makeConnection();
+			ps = conn.prepareStatement("SELECT * FROM product p JOIN category c ON p.category_id = c.id WHERE c.id = ? LIMIT ?, ?;");
+			ps.setInt(1, Integer.parseInt(categoryId));
+			ps.setInt(2, (page - 1) * 6);
+			ps.setInt(3, 6);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String brand = rs.getString("brand");
+				double price = rs.getDouble("price");
+				String image = rs.getString("image");
+				int quantity = rs.getInt("quantity");
+				String description = rs.getString("description");
+				boolean is_new = rs.getBoolean("is_new");
+
+				Product product = new Product(id, name, brand, price, image, quantity, description, is_new);
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		}
+		return list;
+	}
+
 }

@@ -35,6 +35,7 @@
 
 <link rel="stylesheet" href="assets/css/general.css">
 
+<!-- pagination css -->
 <style>
 .product__pagination {
 	display: flex;
@@ -45,7 +46,7 @@
 .btn.btn-success {
 	background-color: grey;
 	border-color: grey;
-	color: white; /* Optionally, you can set the text color */
+	color: white; 
 }
 </style>
 

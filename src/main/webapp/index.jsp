@@ -34,6 +34,21 @@
 <link rel="stylesheet" href="assets/css/lightbox.css">
 <link rel="stylesheet" href="assets/css/general.css">
 
+<!-- pagination css -->
+<style>
+.product__pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn.btn-success {
+	background-color: grey;
+	border-color: grey;
+	color: white; 
+}
+</style>
+
 </head>
 
 <body>
@@ -327,15 +342,35 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="pagination">
-							<ul>
-								<li><a href="#"><</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">></a></li>
-							</ul>
+					
+					
+					<!-- Store the category ID in a hidden input field -->
+						<input type="hidden" name="categoryId" value="${categoryId}" />
+
+						<!-- pagination-area-start -->
+						<div class="product__pagination">
+							<div class="list-page"></div>
+							<div class="page-number">
+								<a
+									href="Home?action=SHOW_PRODUCT_BY_CATEGORY&categoryId=${categoryId}&page=${currentPage > 1 ? currentPage - 1 : 1}"
+									class="btn"> &lt; </a>
+
+								<c:forEach var="pageNumber" begin="1" end="${totalPages}">
+									<a
+										href="Home?action=SHOW_PRODUCT_BY_CATEGORY&categoryId=${categoryId}&page=${pageNumber}"
+										class="btn ${pageNumber == currentPage ? 'btn-success' : ''}">
+										${pageNumber} </a>
+								</c:forEach>
+
+								<a
+									href="Home?action=SHOW_PRODUCT_BY_CATEGORY&categoryId=${categoryId}&page=${currentPage < totalPages ? currentPage + 1 : totalPages}"
+									class="btn"> &gt; </a>
+							</div>
 						</div>
+						<!-- pagination-area-end -->
+
+						
+						
 					</div>
 				</div>
 			</div>

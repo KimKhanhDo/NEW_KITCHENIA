@@ -48,7 +48,7 @@ public class HomeController extends HttpServlet {
 				break;
 			}
 			case "SHOW_PRODUCT_BY_CATEGORY": {
-				getProductByCategory(request, response);
+				getProductByCategory2(request, response);
 				break;
 			}
 			case "LOGOUT": {
@@ -81,14 +81,47 @@ public class HomeController extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	private void getProductByCategory(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, SQLException {
+//	private void getProductByCategory(HttpServletRequest request, HttpServletResponse response)
+//			throws ServletException, IOException, SQLException {
+//
+//		String categoryId = request.getParameter("categoryId");
+//		products = categoryDao.getProductByCategoryId(categoryId);
+//
+//		request.setAttribute("productsByCategory", products);
+//		dispatchAttributeToView(request, response, "/index.jsp");
+//	}
+	
+	private void getProductByCategory2(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException, SQLException {
 
-		String categoryId = request.getParameter("categoryId");
-		products = categoryDao.getProductByCategoryId(categoryId);
+	    String categoryId = request.getParameter("categoryId");
+	    String page = request.getParameter("page");
 
-		request.setAttribute("productsByCategory", products);
-		dispatchAttributeToView(request, response, "/index.jsp");
+	    int currentPage = 1;
+	    if (page != null && categoryId != null) {
+	        currentPage = Integer.parseInt(page);
+	    }
+
+	   
+	        int totalPages = CategoryDAO.getTotalPageByCategory(categoryId);
+	        products = categoryDao.pagingProductByCategoryId(categoryId, currentPage);
+	        categories = categoryDao.showCategories();
+
+	        // Set page=1 if it's not already provided
+//	        if (page == null) {
+//	            response.sendRedirect("Home?action=SHOW_PRODUCT_BY_CATEGORY&categoryId=" + categoryId + "&page=1");
+//	            return; // stop further execution to avoid dispatching to the view
+//	        }
+
+	        request.setAttribute("productsByCategory", products);
+	        request.setAttribute("totalPages", totalPages);
+	        request.setAttribute("currentPage", currentPage);
+	        request.setAttribute("categoryId", categoryId);
+	        
+	        System.out.println("Function active");
+
+	        dispatchAttributeToView(request, response, "/index.jsp");
+
 	}
 
 	private void getSearchedProducts(HttpServletRequest request, HttpServletResponse response)
@@ -114,35 +147,29 @@ public class HomeController extends HttpServlet {
 	}
 
 	private void showAllProducts(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
+	        throws SQLException, ServletException, IOException {
 
-		categories = categoryDao.showCategories();
-		products = productDao.getAllProducts();
+	    int currentPage = 1;
+	    String page = request.getParameter("page");
 
-		// Call doPagination --> set pagination attributes in the request
-		doPagination(request);
-		request.setAttribute("allProducts", products);
+	    if (page != null) {
+	        currentPage = Integer.parseInt(page);
+	    }
 
-		dispatchAttributeToView(request, response, "/all-products.jsp");
-	}
+	    
+	        categories = categoryDao.showCategories();
+	        products = productDao.getProductsByPage(currentPage);
 
-	public void doPagination(HttpServletRequest request) throws ServletException, IOException {
-		try {
-			int currentPage = 1;
-			String page = request.getParameter("page");
-
-			if (page != null) {
-				currentPage = Integer.parseInt(request.getParameter("page"));
-			}
-
-			products = productDao.getProductsByPage(currentPage);
-
-			// Set the pagination attributes directly in the request
-			request.setAttribute("totalPage", ProductDAO.getTotalPage());
-			request.setAttribute("currentPage", currentPage);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        // Set the pagination attributes directly in the request
+	        request.setAttribute("totalPage", ProductDAO.getTotalPage());
+	        request.setAttribute("currentPage", currentPage);
+	        request.setAttribute("categories", categories);
+	        request.setAttribute("allProducts", products);
+	        System.out.println("active");
+	        System.out.println("hello");
+	        //dispatchAttributeToView(request, response, "/all-products.jsp");
+	        
+	        RequestDispatcher rd = request.getRequestDispatcher("/all-products.jsp");
+			rd.forward(request, response);
 	}
 }

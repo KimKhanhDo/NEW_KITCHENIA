@@ -48,7 +48,7 @@ public class HomeController extends HttpServlet {
 				break;
 			}
 			case "SHOW_PRODUCT_BY_CATEGORY": {
-				getProductByCategory2(request, response);
+				getProductByCategory(request, response);
 				break;
 			}
 			case "LOGOUT": {
@@ -81,17 +81,8 @@ public class HomeController extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-//	private void getProductByCategory(HttpServletRequest request, HttpServletResponse response)
-//			throws ServletException, IOException, SQLException {
-//
-//		String categoryId = request.getParameter("categoryId");
-//		products = categoryDao.getProductByCategoryId(categoryId);
-//
-//		request.setAttribute("productsByCategory", products);
-//		dispatchAttributeToView(request, response, "/index.jsp");
-//	}
 	
-	private void getProductByCategory2(HttpServletRequest request, HttpServletResponse response)
+	private void getProductByCategory(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException, SQLException {
 
 	    String categoryId = request.getParameter("categoryId");
@@ -107,17 +98,13 @@ public class HomeController extends HttpServlet {
 	        products = categoryDao.pagingProductByCategoryId(categoryId, currentPage);
 	        categories = categoryDao.showCategories();
 
-	        // Set page=1 if it's not already provided
-//	        if (page == null) {
-//	            response.sendRedirect("Home?action=SHOW_PRODUCT_BY_CATEGORY&categoryId=" + categoryId + "&page=1");
-//	            return; // stop further execution to avoid dispatching to the view
-//	        }
 
 	        request.setAttribute("productsByCategory", products);
 	        request.setAttribute("totalPages", totalPages);
 	        request.setAttribute("currentPage", currentPage);
 	        request.setAttribute("categoryId", categoryId);
 	        
+	        // Test
 	        System.out.println("Function active");
 
 	        dispatchAttributeToView(request, response, "/index.jsp");
@@ -160,14 +147,16 @@ public class HomeController extends HttpServlet {
 	        categories = categoryDao.showCategories();
 	        products = productDao.getProductsByPage(currentPage);
 
-	        // Set the pagination attributes directly in the request
+	       
 	        request.setAttribute("totalPage", ProductDAO.getTotalPage());
 	        request.setAttribute("currentPage", currentPage);
 	        request.setAttribute("categories", categories);
 	        request.setAttribute("allProducts", products);
+	        
+	        // Test
 	        System.out.println("active");
 	        System.out.println("hello");
-	        //dispatchAttributeToView(request, response, "/all-products.jsp");
+	        
 	        
 	        RequestDispatcher rd = request.getRequestDispatcher("/all-products.jsp");
 			rd.forward(request, response);

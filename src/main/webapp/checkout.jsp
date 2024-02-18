@@ -69,7 +69,7 @@ https://templatemo.com/tm-571-hexashop
     <!-- ***** Customer Orders Area Starts ***** -->
     <section>
       <div class="main">
-        <div class="page-title">Review your order</div>
+        <div class="page-title">Order Successfully</div>
   
         <div class="checkout-grid">
           <div>
@@ -145,7 +145,35 @@ https://templatemo.com/tm-571-hexashop
               </div>
 
           </div>          
-          <div class="payment-summary js-payment-summary"> </div>
+          
+          <div class="payment-summary">          	
+				<div class="payment-summary-row">
+					<div>Items (${sessionScope.cart.getItems().size()}):</div>
+					<div class="payment-summary-money"></div>
+				</div>
+
+				<div class="payment-summary-row">
+					<div>Shipping &amp; handling:</div>
+					<div class="payment-summary-money"></div>
+				</div>
+
+				<div class="payment-summary-row subtotal-row">
+							
+					<div id="cart-total">Total before tax: $${cart.getTotal()}</div>
+					<div class="payment-summary-money"></div>
+					
+				</div>
+
+				<div class="payment-summary-row">
+					<div id="cart-tax">Estimated tax: $${cart.getTax()}</div>
+					<div class="payment-summary-money"></div>
+				</div>
+
+				<div class="payment-summary-row total-row">
+					<div id="cart-totalWithTax">Order total: $${cart.getTotalWithTax()} </div>
+					<div class="payment-summary-money"></div>
+				</div>	
+          </div>
          </div>
       </div>
     </section>

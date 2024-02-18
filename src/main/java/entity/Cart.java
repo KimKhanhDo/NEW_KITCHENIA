@@ -14,5 +14,7 @@ public class Cart {
 	
 	private HashSet<ProductInCart> items;
 	private double total;	
+	private double tax;
+	private double totalWithTax;
 	
 }

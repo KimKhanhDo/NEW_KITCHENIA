@@ -12,11 +12,11 @@ import entity.Order;
 import entity.OrderDetails;
 import sql.connection.DBConnection;
 
-public class OrderDAO {
+public class OrderDAO {	
 	public boolean addOrder(Order order, ArrayList<OrderDetails> orderDetailList) throws SQLException {
 		Connection connection = DBConnection.makeConnection();
 		PreparedStatement preStmt = null;
-		ResultSet rs = preStmt.getGeneratedKeys();
+		ResultSet rs = null;
 		try {
 
 			connection.setAutoCommit(false);
@@ -27,20 +27,23 @@ public class OrderDAO {
 			preStmt.setInt(1, order.getUserId());
 
 			preStmt.executeUpdate();
+			rs = preStmt.getGeneratedKeys();
+			
 			int key = 0;
 
 			if (rs.next()) {
 				key = (int) rs.getInt(1);
 			}
 
-			String SQL_INSERT_ORDER_DETAIL = "INSERT INTO `order_detail` (orderId, productId, price, quantity) VALUES (?, ?, ?, ?);";
+			String SQL_INSERT_ORDER_DETAIL = "INSERT INTO `order_detail` (orderId, productId, image, price, quantity) VALUES (?, ?, ?, ?, ?);";
 			preStmt = connection.prepareStatement(SQL_INSERT_ORDER_DETAIL);
 
-			for (OrderDetails orderDetail : orderDetailList) {
+			for (OrderDetails orderDetails : orderDetailList) {
 				preStmt.setInt(1, key);
-				preStmt.setInt(2, orderDetail.getProductId());
-				preStmt.setDouble(3, orderDetail.getPrice());
-				preStmt.setInt(4, orderDetail.getQuantity());
+				preStmt.setInt(2, orderDetails.getProductId());
+				preStmt.setString(3, orderDetails.getImage());
+				preStmt.setDouble(4, orderDetails.getPrice());
+				preStmt.setInt(5, orderDetails.getQuantity());
 
 				preStmt.executeUpdate();
 			}

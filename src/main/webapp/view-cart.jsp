@@ -97,14 +97,15 @@ https://templatemo.com/tm-571-hexashop
 								<div class="cart-item-details">
 									<div class="product-name">${item.name}</div>
 									<div class="product-price">Price: $${item.price}</div>
-									<div class="product-price">Total: $${item.subTotal}</div>
-									<div class="product-quantity">
-										<span> Quantity: <span class="quantity-label">${item.quantity}</span>
-										</span> <span class="update-quantity-link link-primary">
-											Update </span> <span
-											class="delete-quantity-link link-primary js-delete-link">
-											<a href="Cart?action=REMOVE&productId=${item.id}">Delete
-										</a>
+									<div class="product-price" id="sub-total">Total: $${item.subTotal}</div>
+									<div class="product-quantity"> Quantity:										 
+									<form style="display: inline-block;">
+										<input type="number" name="quantity" value="${item.quantity}"
+											min="0" max="20" productId="${item.id}" onchange="updateCart(this)">
+									</form>
+										
+										<span class="delete-quantity-link link-primary">
+											<a href="Cart?action=REMOVE&productId=${item.id}">Delete</a>
 										</span>
 									</div>
 								</div>
@@ -144,25 +145,35 @@ https://templatemo.com/tm-571-hexashop
 
 				<div class="payment-summary-row subtotal-row">
 							
-					<div>Total before tax: ${cart.getTotal()}</div>
+					<div id="cart-total">Total before tax: $${cart.getTotal()}</div>
 					<div class="payment-summary-money"></div>
 				
 					
 				</div>
 
 				<div class="payment-summary-row">
-					<div>Estimated tax (10%): ${cart.getTotal() * 10/100}</div>
+					<div id="cart-tax">Estimated tax: $${cart.getTax()}</div>
 					<div class="payment-summary-money"></div>
 				</div>
 
 				<div class="payment-summary-row total-row">
-					<div>Order total: ${cart.getTotal() + (cart.getTotal() * 10/100)} </div>
+					<div id="cart-totalWithTax">Order total: $${cart.getTotalWithTax()} </div>
 					<div class="payment-summary-money"></div>
 				</div>
 			</c:if>
-				<a href="#">
-					<button class="place-order-button button-primary">Go to checkout</button>
-				</a>
+			
+			<c:if test="${empty sessionScope.user}">
+				<a href="login.jsp">
+					<button class="place-order-button button-primary">Please login to checkout</button>
+				</a>			
+			</c:if>	
+					
+			<c:if test="${not empty sessionScope.user}">
+		 		<form action="Checkout" method="post">
+      			  <button type="submit" class="place-order-button button-primary">Go to checkout</button>
+   				 </form>
+			</c:if>
+				
 			</div>
 		</div>
 	</div>
@@ -208,6 +219,45 @@ https://templatemo.com/tm-571-hexashop
 
 			});
 		});
+	</script>
+	<script>
+	function updateCart(updatedInput) {
+		var productId = updatedInput.getAttribute("productId");
+		var newQuantity = updatedInput.value;
+
+		const xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "UpdateCart?productId=" + productId
+				+ "&quantity=" + newQuantity, true);
+
+		//https://www.w3schools.com/js/js_ajax_http.asp 
+
+		xhttp.onreadystatechange = function() {
+
+			if (xhttp.readyState === 4 && xhttp.status === 200) {
+
+				var responseText = xhttp.responseText.split(",");
+				var subTotal = responseText[0];
+				var totalPrice = responseText[1];
+				var tax = responseText[2];
+				var totalWithTax = responseText[3];
+				
+				var subTotalElement = document.getElementById("sub-total");
+				subTotalElement.innerText = "Total :$ " + subTotal;				
+
+				var TotalElement = document.getElementById("cart-total");
+				TotalElement.innerText = "Total before tax: $" + totalPrice;
+				
+				var taxElement  = document.getElementById("cart-tax");
+				taxElement .innerText = "Estimated tax: $" + tax;
+				
+				var TotalWithTaxElement = document.getElementById("cart-totalWithTax");
+				TotalWithTaxElement.innerText = "Order total: $" + totalWithTax;
+
+			}
+		};
+
+		xhttp.send();
+	}
 	</script>
 
 	<script type="module" src="assets/js/checkout/checkout.js"></script>

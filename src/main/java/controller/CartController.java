@@ -28,8 +28,8 @@ public class CartController extends HttpServlet {
 	ProductDAO productDAO = new ProductDAO();
 	CategoryDAO categoryDAO = new CategoryDAO();
 
-	List<Category> category;
-
+	List<Category> category;	
+	
 	public CartController() {
 		super();
 
@@ -38,39 +38,39 @@ public class CartController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-		String action = request.getParameter("action");
-		if (action == null) {
-			action = "DEFAULT";
-		}
-		switch (action) {
-		case "ADD_TO_CART": {
+			String action = request.getParameter("action");
+			if (action == null) {
+				action = "DEFAULT";
+			}
+			switch (action) {
+			case "ADD_TO_CART": {
 
-			addToCart(request, response);
+				addToCart(request, response);
 
-			break;
-		}
-		case "VIEW_CART": {
-			category = categoryDAO.showCategories();
-			RequestDispatcher rd = request.getRequestDispatcher("view-cart.jsp");
-			request.setAttribute("allCategory", category);
-			rd.forward(request, response);
-			break;
-		}
-		case "REMOVE": {
-			removeCartItems(request, response);
+				break;
+			}
+			case "VIEW_CART": {
+				category = categoryDAO.showCategories();
+				RequestDispatcher rd = request.getRequestDispatcher("view-cart.jsp");
+				request.setAttribute("allCategory", category);
 
-		}
-		default:
-			break;
-		}
+				rd.forward(request, response);
+				break;
+			}
+			case "REMOVE": {
+				removeCartItems(request, response);
 
-	} catch (NumberFormatException | IOException | SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			}
+			default:
+				break;
+			}
+
+		} catch (NumberFormatException | IOException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	}
-	
-	
+
 	private void addToCart(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, NumberFormatException, SQLException {
 		String productId = request.getParameter("productId");
@@ -80,7 +80,6 @@ public class CartController extends HttpServlet {
 		ProductInCart productInCart = new ProductInCart(product.getId(), product.getName(), product.getImage(),
 				product.getPrice(), 0, Integer.parseInt(quantity));
 		Cart cart;
-		double totalPrice = 0;
 
 		HttpSession session = request.getSession();
 
@@ -90,18 +89,19 @@ public class CartController extends HttpServlet {
 
 		} else {
 			cart = (Cart) session.getAttribute("cart");
-		} 
+		}
 
-		if (cart.getItems().contains(productInCart)){
-			for(ProductInCart item : cart.getItems()) {
-				if(item.getId() == productInCart.getId()){
+		if (cart.getItems().contains(productInCart)) {
+			for (ProductInCart item : cart.getItems()) {
+				if (item.getId() == productInCart.getId()) {
 					int currentQuantity = item.getQuantity();
 					productInCart.setQuantity(currentQuantity + Integer.parseInt(quantity));
 					productInCart.setSubTotal(productInCart.getPrice() * productInCart.getQuantity());
 					System.out.println("SubTotal: " + productInCart.getSubTotal());
-				}			
-				
+				}
+
 			}
+
 			cart.getItems().remove(productInCart);
 
 			cart.getItems().add(productInCart);
@@ -110,15 +110,20 @@ public class CartController extends HttpServlet {
 			productInCart.setSubTotal(productInCart.getPrice() * productInCart.getQuantity());
 			cart.getItems().add(productInCart);
 		}
-
+		
+		double totalPrice = 0;
 		// calculate total
 		for (ProductInCart i : cart.getItems()) {
-			totalPrice += i.getPrice() * i.getQuantity();
+			totalPrice += Math.round(i.getPrice() * i.getQuantity() * 100) / 100;
 			System.out.println("total: " + totalPrice);
 			cart.setTotal(totalPrice);
 		}
+		cart.setTax(Math.ceil(totalPrice * 10.0) / 100.0);
+		
+		cart.setTotalWithTax(cart.getTotal() + cart.getTax());
 
 		session.setAttribute("cart", cart);
+
 		response.sendRedirect("ProductDetail?productId=" + productId);
 
 	}
@@ -135,17 +140,17 @@ public class CartController extends HttpServlet {
 		HttpSession session = request.getSession();
 		cart = (Cart) session.getAttribute("cart");
 		int removedQuantity = 0;
-		
+
 		if (cart.getItems().contains(productInCart)) {
-			for(ProductInCart item : cart.getItems()) {
-				if(item.getId() == productInCart.getId()){
+			for (ProductInCart item : cart.getItems()) {
+				if (item.getId() == productInCart.getId()) {
 					removedQuantity = item.getQuantity();
-				}			
-				
+				}
+
 			}
 
 			// get the quantity of removed items
-			
+
 			cart.getItems().remove(productInCart);
 
 			// calculate sub-total of removed item
@@ -153,12 +158,13 @@ public class CartController extends HttpServlet {
 
 			// update total Price by minus the removed item sub total
 			cart.setTotal(cart.getTotal() - totalPriceOfRemovedItem);
+			cart.setTax(Math.ceil(cart.getTotal() * 10.0) / 100.0);
+			cart.setTotalWithTax(cart.getTax() + cart.getTotal());
 
 		} else {
 			addToCart(request, response);
 		}
 		response.sendRedirect("Cart?action=VIEW_CART");
 	}
-
 
 }

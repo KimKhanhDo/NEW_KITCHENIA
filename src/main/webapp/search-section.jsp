@@ -110,15 +110,10 @@ https://templatemo.com/tm-571-hexashop
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
+					
 						<div class="pagination">
-							<ul>
-								<li><a href="#"><</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">></a></li>
-							</ul>
 						</div>
+						
 					</div>
 				</div>
 			</div>

@@ -54,7 +54,7 @@
 											Order</a></li>
 									<li><a class="dropdown-item" href="changePassword.jsp">Change
 											Password</a></li>
-									<li><a class="dropdown-item" href=Home?action=LOGOUT>Log
+									<li><a class="dropdown-item" href="Authentication?action=LOGOUT">Log
 											Out <i class="fa fa-sign-out" aria-hidden="true"></i>
 									</a></li>
 								</ul></li>

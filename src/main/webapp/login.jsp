@@ -97,7 +97,9 @@ a.text-body {
 				<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
 					<!-- Your form content here -->
-					<form action="Login" method="post">
+					<form action="Authentication?action=LOGIN" method="post">
+					
+					
 
 						<div class="text-center text-lg-start mt-4 pt-2">
 							<button type="submit" name="loginButton"
@@ -127,12 +129,15 @@ a.text-body {
 						</div>
 
 						<div class="d-flex justify-content-between align-items-center">
+						
 							<!-- Checkbox -->
+							
 							<div class="form-check mb-0">
-								<input class="form-check-input me-2" type="checkbox" value=""
+								<input class="form-check-input me-2" type="checkbox" name="rememberMe" value="true"
 									id="form2Example3" /> <label class="form-check-label"
 									for="form2Example3"> Remember me </label>
 							</div>
+						
 							<a href="forgot-password.jsp" class="text-body">Forgot password?</a>
 						</div>
 
@@ -141,6 +146,7 @@ a.text-body {
 								<p style="color: red;">${errorMessage}</p>
 							</c:if>
 						</div>
+						</form>
 
 						<div class="text-center text-lg-start mt-4 pt-2">
 							<p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 

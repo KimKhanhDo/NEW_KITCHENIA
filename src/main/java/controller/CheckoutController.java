@@ -113,12 +113,12 @@ public class CheckoutController extends HttpServlet {
 				request.getSession().setAttribute("orderId", orderId);
 				
 
-				SendOrderConfirmation(email, firstName, lastName, address, suburb, state, postcode, phone, orderDetailList, cart.getTotal(), cart.getTax(), cart.getTotalWithTax());
+				SendOrderConfirmation(email, firstName, lastName);
 
 				showOrderDetail(request, response);
 
 			} else {
-				response.sendRedirect("about.jsp");
+				response.sendRedirect("404.jsp");
 
 			}
 		} catch (SQLException e) {
@@ -164,48 +164,43 @@ public class CheckoutController extends HttpServlet {
 		
 	}
 	
-	 public static void SendOrderConfirmation(String email, String firstName, String lastName, String address, String suburb, String state, String postcode, String phone, List<OrderDetails> orderDetails, double totalPrice, double tax, double totalWithTax) {
-	        final String username = "javaIsFun12@gmail.com"; // Gmail address
-	        final String password = "qxfvthymqgvapxvt"; // Gmail app-specific password
+	public static void SendOrderConfirmation(String email, String firstName, String lastName) {
+	    final String username = "javaIsFun12@gmail.com"; // Gmail email address
+	    final String password = "qxfvthymqgvapxvt"; // Gmail app-specific password
 
-	        Properties props = new Properties();
-	        props.put("mail.smtp.auth", "true");
-	        props.put("mail.smtp.starttls.enable", "true");
-	        props.put("mail.smtp.host", "smtp.gmail.com");
-	        props.put("mail.smtp.port", "587");
+	    Properties props = new Properties();
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    props.put("mail.smtp.port", "587");
 
-	        Session session = Session.getInstance(props, new Authenticator() {
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(username, password);
-	            }
-	        });
-
-	        try {
-	            Message message = new MimeMessage(session);
-	            message.setFrom(new InternetAddress(username));
-	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-	            message.setSubject("Order Confirmation");
-
-	            StringBuilder sb = new StringBuilder();
-	            sb.append("Hey ").append(firstName).append(" ").append(lastName).append(",\n\n");
-	            sb.append("We've received your order. Here are the details:\n\n");
-	            for (OrderDetails detail : orderDetails) {
-	                sb.append("- ").append(detail.getName()).append(": ").append(detail.getQuantity()).append(" x $").append(detail.getPrice()).append("\n");
-	            }
-	            sb.append("\n\nTotal Price: $").append(totalPrice);
-	            sb.append("\nTax: $").append(tax);
-	            sb.append("\nTotal with Tax: $").append(totalWithTax);
-	            sb.append("\n\nBilling Information:\n").append(address).append(", ").append(suburb).append(", ").append(state).append(", ").append(postcode).append("\nPhone: ").append(phone);
-	            sb.append("\n\nYour order will be processed shortly.\n\nThank you for shopping with us!");
-
-	            message.setText(sb.toString());
-
-	            Transport.send(message);
-
-	            System.out.println("Order confirmation email sent successfully.");
-	        } catch (MessagingException e) {
-	            e.printStackTrace();
+	    Session session = Session.getInstance(props, new Authenticator() {
+	        protected PasswordAuthentication getPasswordAuthentication() {
+	            return new PasswordAuthentication(username, password);
 	        }
-	    }
+	    });
 
+	    try {
+	        Message message = new MimeMessage(session);
+	        message.setFrom(new InternetAddress(username));
+	        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+	        message.setSubject("Order Confirmation");
+
+	        StringBuilder sb = new StringBuilder();
+	       
+	        sb.append("Hey ").append(firstName).append(" ").append(lastName).append(",\n\n");
+	        sb.append("We've received your order. Your order will be processed shortly.\n\nThank you for shopping with us!");
+	       
+	        message.setText(sb.toString());
+
+	        Transport.send(message);
+
+	        System.out.println("Order confirmation email sent successfully.");
+	    } catch (MessagingException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	 
 }

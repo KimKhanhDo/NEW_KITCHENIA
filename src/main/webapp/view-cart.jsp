@@ -75,7 +75,7 @@
 	<!-- ***** Explore Area Ends ***** -->
 
 	<div class="main">
-		<div class="page-title">Review your order</div>
+		<!-- <div class="page-title">Shopping Cart</div> -->
 
 
 		<div class="checkout-grid">
@@ -87,7 +87,7 @@
 				<c:if test="${not empty sessionScope.cart.items}">
 					<c:forEach var="item" items="${sessionScope.cart.items}">
 						<div class="cart-item-container">
-							<div class="delivery-date">Delivery date: ${dateString}</div>
+							<%-- <div class="delivery-date">Delivery date: ${dateString}</div> --%>
 
 							<div class="cart-item-details-grid">
 								<img class="product-image" src="assets/images/${item.image}">
@@ -111,11 +111,10 @@
 										</span>
 									</div>
 								</div>
-								<div class="delivery-options">
+								<!-- <div class="delivery-options">
 									<div class="delivery-options-title">Choose a delivery
 										option:</div>
-
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</c:forEach>
@@ -128,7 +127,7 @@
 				<div class="payment-summary-title">Order Summary</div>
 				<c:if test="${empty sessionScope.cart.getItems()}">
 					<div class="payment-summary-row">
-						<div>Items (${sessionScope.cart.getItems().size()}):</div>
+						<div>Item(s): (${sessionScope.cart.getItems().size()})</div>
 						<div class="payment-summary-money"></div>
 					</div>
 

@@ -160,16 +160,14 @@ public class OrderDAO {
 				key = (int) rs.getInt(1);
 			}
 
-			String SQL_INSERT_ORDER_DETAIL = "INSERT INTO `order_detail` (orderId, productId, image, name, price, quantity) VALUES (?, ?, ?, ?, ?, ?);";
+			String SQL_INSERT_ORDER_DETAIL = "INSERT INTO `order_detail` (orderId, productId, price, quantity) VALUES (?, ?, ?, ?);";
 			preStmt = connection.prepareStatement(SQL_INSERT_ORDER_DETAIL);
 
 			for (OrderDetails orderDetails : orderDetailList) {
 				preStmt.setInt(1, key);
 				preStmt.setInt(2, orderDetails.getProductId());
-				preStmt.setString(3, orderDetails.getImage());
-				preStmt.setString(4, orderDetails.getName());
-				preStmt.setDouble(5, orderDetails.getPrice());
-				preStmt.setInt(6, orderDetails.getQuantity());
+				preStmt.setDouble(3, orderDetails.getPrice());
+				preStmt.setInt(4, orderDetails.getQuantity());
 
 				preStmt.executeUpdate();
 			}
@@ -242,7 +240,10 @@ public class OrderDAO {
 	public List<OrderDetails> getOrderDetailById(int orderId) throws SQLException {
 		Connection connection = DBConnection.makeConnection();
 
-		String SQL = "SELECT * FROM `order_detail` WHERE orderId = ?;";
+		String SQL = "SELECT od.id, od.orderId, od.productId, od.price, od.quantity, p.name, p.image " +
+                "FROM order_detail od " +
+                "JOIN product p ON od.productId = p.id " +
+                "WHERE od.orderId = ?;";
 		PreparedStatement preStmt = connection.prepareStatement(SQL);
 
 		preStmt.setInt(1, orderId);

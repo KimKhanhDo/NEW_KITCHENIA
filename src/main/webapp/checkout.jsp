@@ -59,7 +59,7 @@
 	<!-- ***** Main Banner Area End ***** -->
 
 	<div class="container my-5">
-		<div class="page-title">Review Items And Delivery</div>
+		<div class="page-title">Review Item(s)</div>
 		<div class="row">
 			<!-- Cart Item Container -->
 			<div class="col-lg-8 mb-4">
@@ -95,7 +95,7 @@
 					<h4 class="mb-3">Order Summary</h4>
 					<!-- Summary details -->
 					<div class="payment-summary-row">
-						<div>Items (${sessionScope.cart.getItems().size()}):</div>
+						<div>Item(s): (${sessionScope.cart.getItems().size()})</div>
 						<div class="payment-summary-money"></div>
 					</div>
 

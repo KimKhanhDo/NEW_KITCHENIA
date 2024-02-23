@@ -52,9 +52,11 @@ public class PaymentController extends HttpServlet {
 		if (session.getAttribute("billingOrder") == null) {
 			billingOrder = new Order(userId, totalPrice, firstName, lastName, address, suburb, state, postcode, phone, email);
 			session.setAttribute("billingOrder", billingOrder);
+			System.out.println("In bill ra dum di ma");
 
 		} else {
 			billingOrder = (Order) session.getAttribute("billingOrder");
+			System.out.println("Nan ni do, in bill ra dum di de con coi phim be de nua");
 		}
 
 		

@@ -103,9 +103,6 @@ public class HomeController extends HttpServlet {
 	        request.setAttribute("totalPages", totalPages);
 	        request.setAttribute("currentPage", currentPage);
 	        request.setAttribute("categoryId", categoryId);
-	        
-	        // Test
-	        System.out.println("Function active");
 
 	        dispatchAttributeToView(request, response, "/index.jsp");
 
@@ -152,11 +149,6 @@ public class HomeController extends HttpServlet {
 	        request.setAttribute("currentPage", currentPage);
 	        request.setAttribute("categories", categories);
 	        request.setAttribute("allProducts", products);
-	        
-	        // Test
-	        System.out.println("active");
-	        System.out.println("hello");
-	        
 	        
 	        RequestDispatcher rd = request.getRequestDispatcher("/all-products.jsp");
 			rd.forward(request, response);

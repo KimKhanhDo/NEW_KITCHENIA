@@ -28,7 +28,8 @@ public class CartController extends HttpServlet {
 	ProductDAO productDAO = new ProductDAO();
 	CategoryDAO categoryDAO = new CategoryDAO();
 
-	List<Category> category;	
+	List<Category> categories;	
+
 	
 	public CartController() {
 		super();
@@ -43,28 +44,27 @@ public class CartController extends HttpServlet {
 				action = "DEFAULT";
 			}
 			switch (action) {
+			
 			case "ADD_TO_CART": {
-
 				addToCart(request, response);
-
 				break;
 			}
 			case "VIEW_CART": {
-				category = categoryDAO.showCategories();
+				categories = categoryDAO.showCategories();
+				request.setAttribute("categories", categories);
 				RequestDispatcher rd = request.getRequestDispatcher("view-cart.jsp");
-				request.setAttribute("allCategory", category);
+			
 
 				rd.forward(request, response);
 				break;
 			}
 			case "REMOVE": {
 				removeCartItems(request, response);
-
-			}
+				break;
+			}			
 			default:
 				break;
 			}
-
 		} catch (NumberFormatException | IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

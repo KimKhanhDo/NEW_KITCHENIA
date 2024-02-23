@@ -37,14 +37,12 @@
 <link rel="stylesheet" href="assets/css/checkout-header.css">
 <link rel="stylesheet" href="assets/css/checkout.css">
 
-
-<!--
-
-TemplateMo 571 Hexashop
-
-https://templatemo.com/tm-571-hexashop
-
--->
+<style>
+.btn-primary, .bg-primary {
+	background-color: #DC5434 !important; /* Lighter Orange */
+	border-color: #DC5434 !important;
+}
+</style>
 </head>
 
 <body>
@@ -70,13 +68,14 @@ https://templatemo.com/tm-571-hexashop
 	<!-- ***** Explore Area Starts ***** -->
 	<section>
 		<div class="checkout-header-middle-section">
-			Checkout (<a class="return-to-home-link" href="index.jsp">${sessionScope.cart.getItems().size()} Items</a>)
+			Checkout (<a class="return-to-home-link" href="index.jsp">${sessionScope.cart.getItems().size()}
+				Items</a>)
 		</div>
 	</section>
 	<!-- ***** Explore Area Ends ***** -->
 
 	<div class="main">
-		<div class="page-title">Review your order</div>
+		<!-- <div class="page-title">Shopping Cart</div> -->
 
 
 		<div class="checkout-grid">
@@ -88,7 +87,7 @@ https://templatemo.com/tm-571-hexashop
 				<c:if test="${not empty sessionScope.cart.items}">
 					<c:forEach var="item" items="${sessionScope.cart.items}">
 						<div class="cart-item-container">
-							<div class="delivery-date">Delivery date: ${dateString}</div>
+							<%-- <div class="delivery-date">Delivery date: ${dateString}</div> --%>
 
 							<div class="cart-item-details-grid">
 								<img class="product-image" src="assets/images/${item.image}">
@@ -97,23 +96,28 @@ https://templatemo.com/tm-571-hexashop
 								<div class="cart-item-details">
 									<div class="product-name">${item.name}</div>
 									<div class="product-price">Price: $${item.price}</div>
-									<div class="product-price" id="sub-total">Total: $${item.subTotal}</div>
-									<div class="product-quantity"> Quantity:										 
-									<form style="display: inline-block;">
-										<input type="number" name="quantity" value="${item.quantity}"
-											min="0" max="20" productId="${item.id}" onchange="updateCart(this)">
-									</form>
-										
-										<span class="delete-quantity-link link-primary">
-											<a href="Cart?action=REMOVE&productId=${item.id}">Delete</a>
+
+									<div class="product-price" id="sub-total">Total:
+										$${item.subTotal}</div>
+									<div class="product-quantity">
+										Quantity:
+										<form style="display: inline-block;">
+											<input type="number" name="quantity" value="${item.quantity}"
+												min="0" max="20" productId="${item.id}"
+												onchange="updateCart(this)">
+										</form>
+
+										<span class="delete-quantity-link link-primary"> <a
+											href="Cart?action=REMOVE&productId=${item.id}">Delete</a>
+
+
 										</span>
 									</div>
 								</div>
-								<div class="delivery-options">
+								<!-- <div class="delivery-options">
 									<div class="delivery-options-title">Choose a delivery
 										option:</div>
-
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</c:forEach>
@@ -124,56 +128,59 @@ https://templatemo.com/tm-571-hexashop
 
 			<div class="payment-summary ">
 				<div class="payment-summary-title">Order Summary</div>
-			<c:if test="${empty sessionScope.cart.getItems()}">
-				<div class="payment-summary-row">
-					<div>Items (${sessionScope.cart.getItems().size()}):</div>
-					<div class="payment-summary-money"></div>
-				</div>
-			
-			</c:if>
+				<c:if test="${empty sessionScope.cart.getItems()}">
+					<div class="payment-summary-row">
+						<div>Items (${sessionScope.cart.getItems().size()}):</div>
+						<div class="payment-summary-money"></div>
+					</div>
+
+				</c:if>
+
+				<c:if test="${not empty sessionScope.cart.getItems()}">
+					<div class="payment-summary-row">
+						<div>Items (${sessionScope.cart.getItems().size()}):</div>
+						<div class="payment-summary-money"></div>
+					</div>
 				
-			<c:if test="${not empty sessionScope.cart.getItems()}">		
-				<div class="payment-summary-row">
-					<div>Items (${sessionScope.cart.getItems().size()}):</div>
-					<div class="payment-summary-money"></div>
-				</div>
 
-				<div class="payment-summary-row">
-					<div>Shipping &amp; handling:</div>
-					<div class="payment-summary-money"></div>
-				</div>
+					<div class="payment-summary-row subtotal-row">
+						<div id="cart-total">Total before tax: $${cart.getTotal()}</div>
+						<div class="payment-summary-money"></div>
 
-				<div class="payment-summary-row subtotal-row">
-							
-					<div id="cart-total">Total before tax: $${cart.getTotal()}</div>
-					<div class="payment-summary-money"></div>
-				
-					
-				</div>
+					</div>
 
-				<div class="payment-summary-row">
-					<div id="cart-tax">Estimated tax: $${cart.getTax()}</div>
-					<div class="payment-summary-money"></div>
-				</div>
+					<div class="payment-summary-row">
+						<div id="cart-tax">Estimated tax: $${cart.getTax()}</div>
+						<div class="payment-summary-money"></div>
+					</div>
 
-				<div class="payment-summary-row total-row">
-					<div id="cart-totalWithTax">Order total: $${cart.getTotalWithTax()} </div>
-					<div class="payment-summary-money"></div>
-				</div>
-			</c:if>
-			
-			<c:if test="${empty sessionScope.user}">
-				<a href="login.jsp">
-					<button class="place-order-button button-primary">Please login to checkout</button>
-				</a>			
-			</c:if>	
-					
-			<c:if test="${not empty sessionScope.user}">
-		 		<form action="Checkout" method="post">
-      			  <button type="submit" class="place-order-button button-primary">Go to checkout</button>
-   				 </form>
-			</c:if>
-				
+					<div class="payment-summary-row total-row">
+						<div id="cart-totalWithTax">Order total:
+							$${cart.getTotalWithTax()}</div>
+						<div class="payment-summary-money"></div>
+					</div>
+				</c:if>
+
+				<c:if test="${empty sessionScope.user}">
+					<div class=" text-lg-start mt-4 pt-2">
+						<a href="login.jsp" class="btn btn-primary btn-sm"
+							style="padding: 0.5rem 1rem;">Please login to checkout</a>
+					</div>
+				</c:if>
+
+				<c:if test="${not empty sessionScope.user}">
+					<div class=" text-lg-start mt-4 pt-2">
+						<a href="checkout.jsp" class="btn btn-primary btn-sm"
+							style="padding: 0.5rem 1rem;">Proceed to Checkout</a>
+					</div>
+				</c:if>
+
+
+				<%-- <c:if test="${empty sessionScope.cart.items}">
+						<h2 class="cart-heading">Your Cart Is Empty</h2>
+					</c:if> --%>
+
+
 			</div>
 		</div>
 	</div>
@@ -221,43 +228,45 @@ https://templatemo.com/tm-571-hexashop
 		});
 	</script>
 	<script>
-	function updateCart(updatedInput) {
-		var productId = updatedInput.getAttribute("productId");
-		var newQuantity = updatedInput.value;
+		function updateCart(updatedInput) {
+			var productId = updatedInput.getAttribute("productId");
+			var newQuantity = updatedInput.value;
 
-		const xhttp = new XMLHttpRequest();
-		xhttp.open("GET", "UpdateCart?productId=" + productId
-				+ "&quantity=" + newQuantity, true);
+			const xhttp = new XMLHttpRequest();
+			xhttp.open("GET", "UpdateCart?productId=" + productId
+					+ "&quantity=" + newQuantity, true);
 
-		//https://www.w3schools.com/js/js_ajax_http.asp 
+			//https://www.w3schools.com/js/js_ajax_http.asp 
 
-		xhttp.onreadystatechange = function() {
+			xhttp.onreadystatechange = function() {
 
-			if (xhttp.readyState === 4 && xhttp.status === 200) {
+				if (xhttp.readyState === 4 && xhttp.status === 200) {
 
-				var responseText = xhttp.responseText.split(",");
-				var subTotal = responseText[0];
-				var totalPrice = responseText[1];
-				var tax = responseText[2];
-				var totalWithTax = responseText[3];
-				
-				var subTotalElement = document.getElementById("sub-total");
-				subTotalElement.innerText = "Total :$ " + subTotal;				
+					var responseText = xhttp.responseText.split(",");
+					var subTotal = responseText[0];
+					var totalPrice = responseText[1];
+					var tax = responseText[2];
+					var totalWithTax = responseText[3];
 
-				var TotalElement = document.getElementById("cart-total");
-				TotalElement.innerText = "Total before tax: $" + totalPrice;
-				
-				var taxElement  = document.getElementById("cart-tax");
-				taxElement .innerText = "Estimated tax: $" + tax;
-				
-				var TotalWithTaxElement = document.getElementById("cart-totalWithTax");
-				TotalWithTaxElement.innerText = "Order total: $" + totalWithTax;
+					var subTotalElement = document.getElementById("sub-total");
+					subTotalElement.innerText = "Total :$ " + subTotal;
 
-			}
-		};
+					var TotalElement = document.getElementById("cart-total");
+					TotalElement.innerText = "Total before tax: $" + totalPrice;
 
-		xhttp.send();
-	}
+					var taxElement = document.getElementById("cart-tax");
+					taxElement.innerText = "Estimated tax: $" + tax;
+
+					var TotalWithTaxElement = document
+							.getElementById("cart-totalWithTax");
+					TotalWithTaxElement.innerText = "Order total: $"
+							+ totalWithTax;
+
+				}
+			};
+
+			xhttp.send();
+		}
 	</script>
 
 	<script type="module" src="assets/js/checkout/checkout.js"></script>

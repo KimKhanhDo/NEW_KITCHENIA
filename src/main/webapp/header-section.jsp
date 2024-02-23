@@ -46,23 +46,26 @@
 
 						<c:if test="${not empty user.username}">
 							<li class="scroll-to-section dropdown"><a href="#"
-								data-toggle="dropdown"> <span>${user.username}</span>
-									<i class="fa fa-caret-down"></i>
+								data-toggle="dropdown"> <span>${user.username}</span> <i
+									class="fa fa-caret-down"></i>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="myCart.jsp">Your
-											Order</a></li>
-									<li><a class="dropdown-item" href="changePassword.jsp">Change
+									<li><form class="dropdown-item" action="Checkout" method="post">
+											<input type="hidden" name="action" value="VIEW_ORDER_HISTORY">
+											<button type="submit" class="dropdown-item" >Your Order</button>
+										</form>
+									<li><a class="dropdown-item" href="forgot-password.jsp">Change
 											Password</a></li>
-									<li><a class="dropdown-item" href=Home?action=LOGOUT>Log
-											Out <i class="fa fa-sign-out" aria-hidden="true"></i>
+									<li><a class="dropdown-item"
+										href="Authentication?action=LOGOUT">Log Out <i
+											class="fa fa-sign-out" aria-hidden="true"></i>
 									</a></li>
 								</ul></li>
 						</c:if>
 						<!-- LOGIN/ LOGOUT area end -->
 
-						<li class="scroll-to-section"><a href="view-cart.jsp">								
-								<img class="cart-icon" src="assets/icons/cart-icon.png">
+						<li class="scroll-to-section"><a href="view-cart.jsp"> <img
+								class="cart-icon" src="assets/icons/cart-icon.png">
 								(${empty sessionScope.cart.getItems()? 0 : sessionScope.cart.getItems().size()})
 						</a></li>
 

@@ -151,7 +151,8 @@ a.text-body {
 						<div class="card-footer">
 							<button class="btn btn-success" type="submit">Get New
 								Password</button>
-							<a href="login.html" class="btn btn-danger">Back to Login</a>
+							<a href="login.jsp" class="btn btn-danger">Back to Login</a>
+							<a href="Home" class="btn btn-danger">Home Page</a>
 						</div>
 					</form>
 				</div>

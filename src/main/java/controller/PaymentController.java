@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +14,12 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 
+import dao.CategoryDAO;
 import entity.Cart;
+import entity.Category;
 import entity.Order;
 import entity.ProductInCart;
 
-import com.stripe.model.Price;
 
 @WebServlet("/Payment")
 public class PaymentController extends HttpServlet {
@@ -49,14 +48,13 @@ public class PaymentController extends HttpServlet {
 		Cart cart = (Cart) session.getAttribute("cart");
 		double totalPrice = cart.getTotal();
 		
+		
 		if (session.getAttribute("billingOrder") == null) {
 			billingOrder = new Order(userId, totalPrice, firstName, lastName, address, suburb, state, postcode, phone, email);
 			session.setAttribute("billingOrder", billingOrder);
-			System.out.println("In bill ra dum di ma");
 
 		} else {
 			billingOrder = (Order) session.getAttribute("billingOrder");
-			System.out.println("Nan ni do, in bill ra dum di de con coi phim be de nua");
 		}
 
 		

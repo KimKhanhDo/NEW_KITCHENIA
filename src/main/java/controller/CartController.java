@@ -50,11 +50,13 @@ public class CartController extends HttpServlet {
 				break;
 			}
 			case "VIEW_CART": {
-				categories = categoryDAO.showCategories();
-				request.setAttribute("categories", categories);
-				RequestDispatcher rd = request.getRequestDispatcher("view-cart.jsp");
-			
+				System.out.println("Action received: " + action);
 
+				categories = categoryDAO.showCategories();
+				System.out.println("Number of categories: " + categories.size());
+				RequestDispatcher rd = request.getRequestDispatcher("/view-cart.jsp");
+				
+				request.setAttribute("categories", categories);
 				rd.forward(request, response);
 				break;
 			}
@@ -150,7 +152,6 @@ public class CartController extends HttpServlet {
 			}
 
 			// get the quantity of removed items
-
 			cart.getItems().remove(productInCart);
 
 			// calculate sub-total of removed item

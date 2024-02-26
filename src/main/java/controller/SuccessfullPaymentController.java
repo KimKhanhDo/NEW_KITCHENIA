@@ -22,8 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.CategoryDAO;
 import dao.OrderDAO;
 import entity.Cart;
+import entity.Category;
 import entity.Order;
 import entity.OrderDetails;
 import entity.ProductInCart;
@@ -130,13 +132,17 @@ public class SuccessfullPaymentController extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 
 		int orderId = (int) request.getSession().getAttribute("orderId");
+		
+		CategoryDAO categoryDAO = new CategoryDAO();
+		List<Category> categories = categoryDAO.showCategories();
 
 		OrderDAO orderDAO = new OrderDAO();
 		List<OrderDetails> orderDetails = orderDAO.getOrderDetailById(orderId);
 
 		request.setAttribute("orderDetails", orderDetails);
-
-		RequestDispatcher rd = request.getRequestDispatcher("checkout-successful.jsp");
+		request.setAttribute("categories", categories);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/checkout-successful.jsp");
 
 		rd.forward(request, response);
 

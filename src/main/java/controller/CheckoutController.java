@@ -22,8 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.CategoryDAO;
 import dao.OrderDAO;
 import entity.Cart;
+import entity.Category;
 import entity.Order;
 import entity.OrderDetails;
 import entity.ProductInCart;
@@ -75,12 +77,15 @@ public class CheckoutController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
-		OrderDAO orderDAO = new OrderDAO();
+		CategoryDAO categoryDAO = new CategoryDAO();
+		List<Category> categories = categoryDAO.showCategories();
 		
+		OrderDAO orderDAO = new OrderDAO();
 		List<Order> list = orderDAO.getOrdersByUserId(user.getId());
 		System.out.println(user.getId());
 		
 		request.setAttribute("orderHistory", list);
+		request.setAttribute("categories", categories);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("order-history.jsp");
 	    dispatcher.forward(request, response);

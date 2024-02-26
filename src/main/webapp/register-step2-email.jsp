@@ -133,10 +133,10 @@ a.text-body {
 								<!-- FORM start -->
 								<form action="Register" method="POST" class="mx-1 mx-md-4">
 									<input type="text" name="ACTION" value="submitEmail" hidden="true">									
-									<input type="hidden" name="firstName" value="${enteredFirstname}"/>
-									<input type="hidden" name="lastName" value="${enteredLastname}" />
-									<input type="hidden" name="phoneNo" value="${enteredPhoneNo}" />
-									<input type="hidden" name="username" value="${enteredUsername}" />
+										 <input type="hidden" name="firstName" value="${verificationUser.first_name}" />
+							             <input type="hidden" name="lastName" value="${verificationUser.last_name}" />
+							             <input type="hidden" name="phoneNo" value="${verificationUser.phoneNumber}" />
+							             <input type="hidden" name="username" value="${verificationUser.username}" />
 									
 									<div class="form-row mb-4">
 										<div class="col-md-12">

@@ -138,8 +138,7 @@ a.text-body {
 										<div class="col-md-6">
 											<div class="form-outline">
 												<label class="form-label" for="form3Example3">Verify code</label>
-												 <input type="text" name="authcode"
-													id="form3Example1c" class="form-control" required />
+												 <input type="text" name="authcode" id="form3Example1c" class="form-control" required />
 											</div>
 										</div>										
 									</div>
@@ -245,19 +244,6 @@ a.text-body {
 	<!-- Global Init -->
 	<script src="assets/js/custom.js"></script>
 
-	<script>
-		function checkReEnterPassword() {
-			password = document.getElementById("password").value;
-			reEnterPassword = document.getElementById("reEnterPassword").value;
-			if (password != reEnterPassword) {
-				document.getElementById("errorMessage").innerHTML = "Passwords do NOT match";
-				return false;
-			} else {
-				document.getElementById("errorMessage").innerHTML = "";
-				return true;
-			}
-		}
-	</script>
 
 	<script>
 		function validateAgreement() {

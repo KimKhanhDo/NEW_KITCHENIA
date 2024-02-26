@@ -131,7 +131,7 @@ a.text-body {
 								</div>
 
 								<!-- FORM start -->
-								<form action="Register" method="POST" class="mx-1 mx-md-4">
+								<form action="Register" method="POST" class="mx-1 mx-md-4" onsubmit="return checkReEnterPassword()">
 										<input type="text" name="ACTION" value="submitPassword" hidden="true">
 							             <input type="hidden" name="firstName" value="${verificationUser.first_name}" />
 							             <input type="hidden" name="lastName" value="${verificationUser.last_name}" />
@@ -150,7 +150,7 @@ a.text-body {
 										<div class="col-md-12">
 											<label class="form-label" for="form3Example4cd">Re-enter Password*</label>
 											 <input type="password" name="reEnterPassword" id="reEnterPassword" class="form-control" required
-													onkeyup="checkReEnterPassword()" />
+													 onkeyup="checkReEnterPassword()" />
 												<div id="errorMessage" style="color: red;"></div>
 										</div>
 									</div>
@@ -258,31 +258,21 @@ a.text-body {
 
 	<!-- Global Init -->
 	<script src="assets/js/custom.js"></script>
-
+	
 	<script>
-		function checkReEnterPassword() {
-			password = document.getElementById("password").value;
-			reEnterPassword = document.getElementById("reEnterPassword").value;
-			if (password != reEnterPassword) {
-				document.getElementById("errorMessage").innerHTML = "Passwords do NOT match";
-				return false;
-			} else {
-				document.getElementById("errorMessage").innerHTML = "";
-				return true;
-			}
-		}
-	</script>
+	function checkReEnterPassword() {
+	    var password = document.getElementById("password").value;
+	    var reEnterPassword = document.getElementById("reEnterPassword").value;
+	    if (password !== reEnterPassword) {
+	        document.getElementById("errorMessage").innerHTML = "Passwords do NOT match";
+	        return false; // Prevent form submission
+	    } else {
+	        document.getElementById("errorMessage").innerHTML = "";
+	        return true; // Allow form submission
+	    }
+	}
+</script>
 
-	<script>
-		function validateAgreement() {
-			var agreeCheckbox = document.getElementById("agreeCheckbox");
-
-			if (!agreeCheckbox.checked) {
-				alert("Please agree to the Terms & Conditions before registering.");
-				return false;
-			}
-		}
-	</script>
 
 </body>
 

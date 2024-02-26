@@ -81,30 +81,27 @@ public class HomeController extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	
 	private void getProductByCategory(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException, SQLException {
+			throws ServletException, IOException, SQLException {
 
-	    String categoryId = request.getParameter("categoryId");
-	    String page = request.getParameter("page");
+		String categoryId = request.getParameter("categoryId");
+		String page = request.getParameter("page");
 
-	    int currentPage = 1;
-	    if (page != null && categoryId != null) {
-	        currentPage = Integer.parseInt(page);
-	    }
+		int currentPage = 1;
+		if (page != null && categoryId != null) {
+			currentPage = Integer.parseInt(page);
+		}
 
-	   
-	        int totalPages = CategoryDAO.getTotalPageByCategory(categoryId);
-	        products = categoryDao.pagingProductByCategoryId(categoryId, currentPage);
-	        categories = categoryDao.showCategories();
+		int totalPages = CategoryDAO.getTotalPageByCategory(categoryId);
+		products = categoryDao.pagingProductByCategoryId(categoryId, currentPage);
+		categories = categoryDao.showCategories();
 
+		request.setAttribute("productsByCategory", products);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("categoryId", categoryId);
 
-	        request.setAttribute("productsByCategory", products);
-	        request.setAttribute("totalPages", totalPages);
-	        request.setAttribute("currentPage", currentPage);
-	        request.setAttribute("categoryId", categoryId);
-
-	        dispatchAttributeToView(request, response, "/index.jsp");
+		dispatchAttributeToView(request, response, "/index.jsp");
 
 	}
 
@@ -131,26 +128,24 @@ public class HomeController extends HttpServlet {
 	}
 
 	private void showAllProducts(HttpServletRequest request, HttpServletResponse response)
-	        throws SQLException, ServletException, IOException {
+			throws SQLException, ServletException, IOException {
 
-	    int currentPage = 1;
-	    String page = request.getParameter("page");
+		int currentPage = 1;
+		String page = request.getParameter("page");
 
-	    if (page != null) {
-	        currentPage = Integer.parseInt(page);
-	    }
+		if (page != null) {
+			currentPage = Integer.parseInt(page);
+		}
 
-	    
-	        categories = categoryDao.showCategories();
-	        products = productDao.getProductsByPage(currentPage);
+		categories = categoryDao.showCategories();
+		products = productDao.getProductsByPage(currentPage);
 
-	       
-	        request.setAttribute("totalPage", ProductDAO.getTotalPage());
-	        request.setAttribute("currentPage", currentPage);
-	        request.setAttribute("categories", categories);
-	        request.setAttribute("allProducts", products);
-	        
-	        RequestDispatcher rd = request.getRequestDispatcher("/all-products.jsp");
-			rd.forward(request, response);
+		request.setAttribute("totalPage", ProductDAO.getTotalPage());
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("categories", categories);
+		request.setAttribute("allProducts", products);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/all-products.jsp");
+		rd.forward(request, response);
 	}
 }

@@ -3,13 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- ***** Preloader Start ***** -->
-<div id="preloader">
-	<div class="jumper">
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
-</div>
+
 <!-- ***** Preloader End ***** -->
 
 
@@ -35,7 +29,7 @@
 						</c:forEach>
 						<!-- end category menu -->
 
-						<li class="scroll-to-section"><a href="explore.jsp">Explore</a></li>
+						<li class="scroll-to-section"><a href="contact.jsp">Contact Us</a></li>
 
 						<!-- LOGIN/ LOGOUT area start -->
 						<c:if test="${user.username == null }">

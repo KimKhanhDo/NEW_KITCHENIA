@@ -54,8 +54,10 @@
 <body>
 
 <jsp:include page="header-section.jsp"/>
-<jsp:include page="main-banner.jsp"/>
 
+
+<c:if test="${empty productsByCategory}">
+	<jsp:include page="main-banner.jsp"/>
 	<!-- ***** Cookware Area Starts ***** -->
 	<c:if test="${not empty latestProducts_1}">
 		<section class="section" id="men">
@@ -292,11 +294,24 @@
 			</div>
 		</section>
 	</c:if>
+	
 	<!-- ***** Accessories Area Ends ***** -->
+</c:if>
 
-
-	<!-- ***** Show Product by CATEGORY Area Starts ***** -->
+	<!-- ***** Show Product by CATEGORY Area Starts ***** -->	
 	<c:if test="${not empty productsByCategory}">
+		
+	  <div class="page-heading" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
 		<section class="section" id="products">
 			<div class="container">
 				<div class="row">

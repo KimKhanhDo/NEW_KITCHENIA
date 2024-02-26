@@ -95,7 +95,7 @@ https://templatemo.com/tm-571-hexashop
 								</div>
 								<div class="down-content">
 									<h4>${product.brand}</h4>
-									<span>${product.name}</span> <span>${product.price}</span>
+									<span>${product.name}</span> <span>$${product.price}</span>
 									<ul class="stars">
 										<li><i class="fa fa-star"></i></li>
 										<li><i class="fa fa-star"></i></li>

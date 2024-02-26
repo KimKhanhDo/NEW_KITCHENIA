@@ -47,11 +47,7 @@ public class CheckoutController extends HttpServlet {
 			if (action == null) {
 				action = "DEFAULT";
 			}
-			switch (action) {
-			case "CHECK_OUT": {
-				submitCart(request, response);
-				break;
-			}
+			switch (action) {			
 			case "VIEW_ORDER_HISTORY":{
 				showOrderHistory(request, response);
 				break;
@@ -72,78 +68,6 @@ public class CheckoutController extends HttpServlet {
 		}
 
 	}
-
-	public void submitCart(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-		try {
-			HttpSession session = request.getSession();
-			User user = (User) session.getAttribute("user");
-			Cart cart = (Cart) session.getAttribute("cart");
-
-			double totalPrice = cart.getTotal();
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			String address = request.getParameter("address");
-			String suburb = request.getParameter("suburb");
-			String state = request.getParameter("state");
-			String postcode = request.getParameter("postcode");
-			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-
-			Order order = new Order(user.getId(), totalPrice, firstName, lastName, address, suburb, state, postcode, phone, email);
-
-			ArrayList<OrderDetails> orderDetailList = new ArrayList<OrderDetails>();
-
-			for (ProductInCart cartItem : cart.getItems()) {
-				OrderDetails orderDetails = new OrderDetails(cartItem.getId(), cartItem.getImage(), cartItem.getName(), cartItem.getPrice(),
-						cartItem.getQuantity());
-
-				orderDetailList.add(orderDetails);
-			}
-
-			OrderDAO orderDAO = new OrderDAO();
-			int orderId = orderDAO.addOrder2(order, orderDetailList);
-
-			if (orderId != -1) {
-
-				// Clear cart
-				request.getSession().removeAttribute("cart");
-				request.getSession().removeAttribute("totalPrice");
-				request.getSession().setAttribute("orderId", orderId);
-				
-
-				SendOrderConfirmation(email, firstName, lastName);
-
-				showOrderDetail(request, response);
-
-			} else {
-				response.sendRedirect("404.jsp");
-
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public void showOrderDetail(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-
-		int orderId = (int) request.getSession().getAttribute("orderId");
-
-		OrderDAO orderDAO = new OrderDAO();
-		List<OrderDetails> orderDetails = orderDAO.getOrderDetailById(orderId);
-
-		request.setAttribute("orderDetails", orderDetails);
-
-		RequestDispatcher rd = request.getRequestDispatcher("checkout-successful.jsp");
-
-		rd.forward(request, response);
-
-		System.out.println("function works");
-
-	}
 	
 	public void showOrderHistory(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
@@ -161,45 +85,6 @@ public class CheckoutController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("order-history.jsp");
 	    dispatcher.forward(request, response);
 		
-	}
+	}	
 	
-	public static void SendOrderConfirmation(String email, String firstName, String lastName) {
-	    final String username = "javaIsFun12@gmail.com"; // Gmail email address
-	    final String password = "qxfvthymqgvapxvt"; // Gmail app-specific password
-
-	    Properties props = new Properties();
-	    props.put("mail.smtp.auth", "true");
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.port", "587");
-
-	    Session session = Session.getInstance(props, new Authenticator() {
-	        protected PasswordAuthentication getPasswordAuthentication() {
-	            return new PasswordAuthentication(username, password);
-	        }
-	    });
-
-	    try {
-	        Message message = new MimeMessage(session);
-	        message.setFrom(new InternetAddress(username));
-	        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-	        message.setSubject("Order Confirmation");
-
-	        StringBuilder sb = new StringBuilder();
-	       
-	        sb.append("Hey ").append(firstName).append(" ").append(lastName).append(",\n\n");
-	        sb.append("We've received your order. Your order will be processed shortly.\n\nThank you for shopping with us!");
-	       
-	        message.setText(sb.toString());
-
-	        Transport.send(message);
-
-	        System.out.println("Order confirmation email sent successfully.");
-	    } catch (MessagingException e) {
-	        e.printStackTrace();
-	    }
-	}
-	
-	
-	 
 }

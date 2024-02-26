@@ -14,9 +14,7 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 
-import dao.CategoryDAO;
 import entity.Cart;
-import entity.Category;
 import entity.Order;
 import entity.ProductInCart;
 

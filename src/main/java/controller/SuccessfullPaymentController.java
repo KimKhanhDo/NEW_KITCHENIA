@@ -116,7 +116,7 @@ public class SuccessfullPaymentController extends HttpServlet {
 
 			sb.append("Hey ").append(firstName).append(" ").append(lastName).append(",\n\n");
 			sb.append(
-					"We've received your order. Your order will be processed shortly.\n\nThank you for shopping with us!");
+					"Your order has been received and will be processed shortly.\n\nThank you for shopping with us!");
 
 			message.setText(sb.toString());
 

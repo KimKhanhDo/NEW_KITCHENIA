@@ -61,7 +61,7 @@ public class UserDAO {
 			user.setEmail(resultSet.getString("email"));
 			user.setFailedCount(resultSet.getInt("failedCount"));
 
-			if (!verifyPassword(password, user.getPassword())) {
+			if (!password.equals(user.getPassword())) {
 				updateFailedCount(user.getEmail());
 				return false;
 			}
@@ -79,18 +79,18 @@ public class UserDAO {
 		}
 	}
 
-	public static boolean verifyPassword(String inputPassword, String hashedPassword) {
-		Verifyer verifier = BCrypt.verifyer();
-		BCrypt.Result result = null;
-
-		try {
-			result = verifier.verify(inputPassword.toCharArray(), hashedPassword);
-			return result.verified;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+//	public static boolean verifyPassword(String inputPassword, String hashedPassword) {
+//		Verifyer verifier = BCrypt.verifyer();
+//		BCrypt.Result result = null;
+//
+//		try {
+//			result = verifier.verify(inputPassword.toCharArray(), hashedPassword);
+//			return result.verified;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+//	}
 
 	public void updateFailedCount(String email) {
 		Connection connection = null;
@@ -286,13 +286,9 @@ public class UserDAO {
 		try {
 			Connection connection = DBConnection.makeConnection();
 			String query = "UPDATE user SET password = ? WHERE email = ?";
-
-			// Hash the new password before updating it in the database
-
-			String encodedNewPassword = BCrypt.withDefaults().hashToString(6, newPassword.toCharArray());
-
+		
 			try (PreparedStatement pst = connection.prepareStatement(query)) {
-				pst.setString(1, encodedNewPassword);
+				pst.setString(1, newPassword);
 				pst.setString(2, email);
 
 				pst.executeUpdate();

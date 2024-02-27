@@ -131,7 +131,7 @@ a.text-body {
 								</div>
 
 								<!-- FORM start -->
-								<form action="Register" method="POST" class="mx-1 mx-md-4" onsubmit="return checkReEnterPassword()">
+								<form action="Register" method="POST" class="mx-1 mx-md-4" onsubmit="return checkReEnterPassword() && hashPassword();">
 										<input type="text" name="ACTION" value="submitPassword" hidden="true">
 							             <input type="hidden" name="firstName" value="${verificationUser.first_name}" />
 							             <input type="hidden" name="lastName" value="${verificationUser.last_name}" />
@@ -255,11 +255,27 @@ a.text-body {
 	<script src="assets/js/lightbox.js"></script>
 	<script src="assets/js/isotope.js"></script>
 	<script src="assets/js/quantity.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bcrypt/5.0.0/bcrypt.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.4.3/bcrypt.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	
+	
 
 	<!-- Global Init -->
 	<script src="assets/js/custom.js"></script>
 	
 	<script>
+	// SHA-256 hashing function
+	function sha256(plainText) {
+	    // Create a new SHA-256 hash object
+	    var hash = CryptoJS.SHA256(plainText);
+	    
+	    // Convert the hash object to a hexadecimal string
+	    var hexHash = hash.toString(CryptoJS.enc.Hex);
+	    
+	    return hexHash;
+	}
+
 	function checkReEnterPassword() {
 	    var password = document.getElementById("password").value;
 	    var reEnterPassword = document.getElementById("reEnterPassword").value;
@@ -271,7 +287,25 @@ a.text-body {
 	        return true; // Allow form submission
 	    }
 	}
-</script>
+	 function hashPassword() {
+	        var passwordInput = document.getElementById("password");
+	        var reEnterPasswordInput = document.getElementById("reEnterPassword");
+	        var password = passwordInput.value;
+	        var reEnterPassword = reEnterPasswordInput.value;
+	        
+	        // Hash passwords using SHA-256 algorithm
+	        var hashedPassword = sha256(password);
+	        var hashedReEnterPassword = sha256(reEnterPassword);
+
+	        // Update password input fields with hashed passwords
+	        passwordInput.value = hashedPassword;
+	        reEnterPasswordInput.value = hashedReEnterPassword;
+
+	        // Return true to allow form submission
+	        return true;
+	    }
+	</script>
+	
 
 
 </body>

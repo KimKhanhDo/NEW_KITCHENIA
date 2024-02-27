@@ -97,9 +97,7 @@ a.text-body {
 				<div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
 					<!-- Your form content here -->
-					<form action="Authentication?action=LOGIN" method="post">
-					
-					
+					<form action="Authentication?action=LOGIN" method="post" onsubmit="return hashPassword()">
 
 						<div class="text-center text-lg-start mt-4 pt-2">
 							<button type="submit" name="loginButton"
@@ -129,16 +127,18 @@ a.text-body {
 						</div>
 
 						<div class="d-flex justify-content-between align-items-center">
-						
+
 							<!-- Checkbox -->
-							
+
 							<div class="form-check mb-0">
-								<input class="form-check-input me-2" type="checkbox" name="rememberMe" value="true"
-									id="form2Example3" /> <label class="form-check-label"
-									for="form2Example3"> Remember me </label>
+								<input class="form-check-input me-2" type="checkbox"
+									name="rememberMe" value="true" id="form2Example3" /> <label
+									class="form-check-label" for="form2Example3"> Remember
+									me </label>
 							</div>
-						
-							<a href="forgot-password.jsp" class="text-body">Forgot password?</a>
+
+							<a href="forgot-password.jsp" class="text-body">Forgot
+								password?</a>
 						</div>
 
 						<div style="margin-top: 30px; margin-bottom: -20px;">
@@ -146,17 +146,18 @@ a.text-body {
 								<p style="color: red;">${errorMessage}</p>
 							</c:if>
 						</div>
-						</form>
-
-						<div class="text-center text-lg-start mt-4 pt-2">
-							<p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? 
-								<a href="register-step1-username.jsp" class="link-danger">Register</a>
-							</p>
-							<p class="small fw-bold mt-2 pt-1 mb-0">Back To Home Page
-								<a href="Home" class="link-danger">Kitchenia</a>
-							</p>
-						</div>
 					</form>
+
+					<div class="text-center text-lg-start mt-4 pt-2">
+						<p class="small fw-bold mt-2 pt-1 mb-0">
+							Don't have an account? <a href="register-step1-username.jsp"
+								class="link-danger">Register</a>
+						</p>
+						<p class="small fw-bold mt-2 pt-1 mb-0">
+							Back To Home Page <a href="Home" class="link-danger">Kitchenia</a>
+						</p>
+					</div>
+
 
 
 				</div>
@@ -215,6 +216,7 @@ a.text-body {
 							<p>Copyright Â© 2025 Kitchenia Co, Ltd. All Rights Reserved.
 
 
+
 							
 							<p>
 								Made with <i class="fa fa-heart"></i> by BE5
@@ -256,10 +258,42 @@ a.text-body {
 
 	<!-- Global Init -->
 	<script src="assets/js/custom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bcrypt/5.0.0/bcrypt.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
-	<script>
-		// Your custom script here
-	</script>
+	<script>        
+    function sha256(plainText) {
+        // Create a new SHA-256 hash object
+        var hash = CryptoJS.SHA256(plainText);
+        
+        // Convert the hash object to a hexadecimal string
+        var hexHash = hash.toString(CryptoJS.enc.Hex);
+        
+        return hexHash;
+    }
+
+    // Function to hash the password before form submission
+    function hashPassword() {
+        var passwordInput = document.getElementById("form3Example4");
+        var password = passwordInput.value;
+
+        // Check if password is not empty
+        if (!password) {
+            alert("Please enter your password.");
+            return false; // Prevent form submission
+        }
+
+        // Hash password using SHA-256 algorithm
+        var hashedPassword = sha256(password);
+
+        // Update password input field with hashed password
+        passwordInput.value = hashedPassword;
+
+        // Allow form submission
+        return true;
+    }
+</script>
+
 
 </body>
 

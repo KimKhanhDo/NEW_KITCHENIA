@@ -67,6 +67,7 @@ public class LoginController extends HttpServlet {
 
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		System.out.println("login password" + password);
 
 		boolean isLogin;
 

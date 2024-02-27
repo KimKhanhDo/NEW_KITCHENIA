@@ -144,16 +144,15 @@ public class RegisterController extends HttpServlet {
 			throws ServletException, IOException, MessagingException {
 		String password = request.getParameter("password");
 
-		if (password != null) {
-			String encodedPassword = BCrypt.withDefaults().hashToString(6, password.toCharArray());
+		if (password != null) {			
 
 			User verificationUser = (User) session.getAttribute("verificationUser");
 
 			userDAO.registerNewUser(verificationUser.getFirst_name(), verificationUser.getLast_name(),
 					verificationUser.getPhoneNumber(), verificationUser.getUsername(), verificationUser.getEmail(),
-					encodedPassword);
+					password);
 			response.sendRedirect("login.jsp");
-			System.out.println(encodedPassword);
+			System.out.println(password);
 			session.removeAttribute("verificationUser");
 		} else {
 			request.getRequestDispatcher("register-step4-password.jsp").forward(request, response);

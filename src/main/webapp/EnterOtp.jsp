@@ -14,7 +14,7 @@
 
 <style type="text/css">
 .form-gap {
-    padding-top: 70px;
+	padding-top: 70px;
 }
 </style>
 </head>
@@ -31,36 +31,43 @@
 								<i class="fa fa-lock fa-4x"></i>
 							</h3>
 							<h2 class="text-center">Enter OTP</h2>
-									<%
-		  			if(request.getAttribute("message")!=null)
-		  			{
-		  				out.print("<p class='text-danger ml-1'>"+request.getAttribute("message")+"</p>");
-		  			}
-		  
-		  %>
-	
+							<%
+							if (request.getAttribute("message") != null) {
+								out.print("<p class='text-danger ml-1'>" + request.getAttribute("message") + "</p>");
+							}
+							%>
+
 							<div class="panel-body">
 
-								<form id="register-form" action="ResetPassword?action=VALIDATE_OTP" role="form" autocomplete="off"
-									class="form" method="post">
 
+								<!-- Form for entering OTP -->
+								<form id="otp-form" action="ResetPassword?action=VALIDATE_OTP"
+									method="post" role="form" autocomplete="off" class="form">
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon"><i
 												class="glyphicon glyphicon-envelope color-blue"></i></span> <input
-												id="opt" name="otp" placeholder="Enter OTP"
+												id="otp" name="otp" placeholder="Enter OTP"
 												class="form-control" type="text" required="required">
 										</div>
 									</div>
 									<div class="form-group">
-										<input name="recover-submit"
-											class="btn btn-lg btn-primary btn-block"
-											value="Reset Password" type="submit">
+										<input name="validate-otp"
+											class="btn btn-lg btn-primary btn-block" value="Validate OTP"
+											type="submit">
 									</div>
-
-									<input type="hidden" class="hide" name="token" id="token"
-										value="">
 								</form>
+
+								<!-- Form for resending OTP -->
+								<form id="resend-otp-form"
+									action="ResetPassword?action=RESEND_OTP" method="post"
+									role="form" autocomplete="off">
+									<div class="form-group">
+										<button type="submit" class="btn btn-lg btn-info btn-block">Resend
+											OTP</button>
+									</div>
+								</form>
+
 
 							</div>
 						</div>

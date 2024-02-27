@@ -110,52 +110,55 @@ a.text-body {
 
 
 	<!-- ***** Main Content Start ***** -->
-	<section class="vh-100">
-		<div class="container h-100">
-			<div
-				class="row d-flex justify-content-center align-items-center h-100">
-				<div class="col-md-8 col-lg-6">
-					<img
-						src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-						class="img-fluid" alt="Sample image">
-				</div>
-				<div class="col-md-8 col-lg-6">
-					<div class="card text-black"">
-						<div class="card-body p-md-5">
-							<div class="row justify-content-center">
-								<p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">SIGN UP</p>
+<section class="vh-100">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6">
+                <div class="card text-black">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">SIGN UP</p>
+                            <div style="margin-top: -20px; margin-bottom: 30px;">
+                                <c:if test="${not empty param.errorMessage}">
+                                    <p style="color: red;">${param.errorMessage}</p>
+                                </c:if>
+                            </div>
 
-								<div style="margin-top: -20px; margin-bottom: 30px;">
-									<c:if test="${not empty param.errorMessage}">
-										<p style="color: red;">${param.errorMessage}</p>
-									</c:if>
-								</div>
+                            <!-- Enter code area -->
+                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 align-items-center">
+                                <div class="form-outline flex-fill me-2">
+                                    <input type="text" name="authcode" id="form3Example1c" class="form-control" placeholder="Verify code" required/>
+                                </div>
 
-								<!-- FORM start -->
-								<form action="Register" method="POST" class="mx-1 mx-md-4">
-								<input type="text" name="ACTION" value="submitVerifyCode" hidden="true">								
-									<div class="form-row mb-4">
-										<div class="col-md-6">
-											<div class="form-outline">
-												<label class="form-label" for="form3Example3">Verify code</label>
-												 <input type="text" name="authcode" id="form3Example1c" class="form-control" required />
-											</div>
-										</div>										
-									</div>
-									<div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">									   
-									    <button type="submit" class="btn btn-primary btn-lg" onclick="validateAgreement()">Next</button>
-									</div>
-								</form>
-								
-								<!-- FORM end -->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- ***** Main Content End ***** -->
+                                <!-- Form for submitting the verification code -->
+                                <div class="me-500">
+                                <form action="Register" method="POST" class="me-2">
+                                    <input type="hidden" name="ACTION" value="submitVerifyCode">
+                                    <button type="submit" class="btn btn-primary " onclick="validateAgreement()">Next</button>
+                                </form>
+                                </div>
+
+                                <!-- Form for resending the verification code -->
+                                <div>
+                                <form action="Register" method="POST">
+                                    <input type="hidden" name="ACTION" value="resendVerifyCode">
+                                    <button type="submit" class="btn btn-primary ">Resend Code</button>
+                                </form>
+                                </div>
+                            </div>
+                            <!-- End of single container for both buttons -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Main Content End ***** -->
+
 
 	<!-- ***** Footer Start ***** -->
 	<footer>

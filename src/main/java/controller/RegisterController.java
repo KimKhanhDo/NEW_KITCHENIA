@@ -51,6 +51,10 @@ public class RegisterController extends HttpServlet {
 
 				break;
 			}
+			case "resendVerifyCode": {
+			    resendVerifyCode(request, response, session);
+			    break;
+			}
 			default: {
 				break;
 
@@ -144,19 +148,46 @@ public class RegisterController extends HttpServlet {
 			throws ServletException, IOException, MessagingException {
 		String password = request.getParameter("password");
 
-		if (password != null) {			
+		if (password != null) {
+			String encodedPassword = BCrypt.withDefaults().hashToString(6, password.toCharArray());
 
 			User verificationUser = (User) session.getAttribute("verificationUser");
 
 			userDAO.registerNewUser(verificationUser.getFirst_name(), verificationUser.getLast_name(),
 					verificationUser.getPhoneNumber(), verificationUser.getUsername(), verificationUser.getEmail(),
-					password);
+					encodedPassword);
 			response.sendRedirect("login.jsp");
-			System.out.println(password);
+			System.out.println(encodedPassword);
 			session.removeAttribute("verificationUser");
 		} else {
 			request.getRequestDispatcher("register-step4-password.jsp").forward(request, response);
 		}
 
+	}
+	
+	public void resendVerifyCode(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	        throws ServletException, IOException, MessagingException {
+	    
+	    User verificationUser = (User) session.getAttribute("verificationUser");
+	    
+	    if (verificationUser != null) {
+	    	
+	         String newCode = userDAO.getRandom();
+	         verificationUser.setCode(newCode);
+	         
+	         System.out.println("New verification code generated: " + newCode);
+	        boolean isEmailSend = userDAO.sendEmail(verificationUser);
+	        
+	        if (isEmailSend) {
+	            // Email sent successfully
+	            response.sendRedirect("register-step3-validateEmail.jsp?resend=true");
+	        } else {
+	            // Failed to send email
+	            request.setAttribute("emailError", "Failed to resend verification email. Please try again.");
+	            request.getRequestDispatcher("register-step3-validateEmail.jsp").forward(request, response);
+	        }
+	    } else {
+	        response.sendRedirect("register-step1-username.jsp");
+	    }
 	}
 }

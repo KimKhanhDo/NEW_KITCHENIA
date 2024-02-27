@@ -48,11 +48,14 @@ public class ResetPasswordController extends HttpServlet {
 				validateOTP(request, response);
 				break;
 			}
+			case "RESEND_OTP": {
+	            resendOTP(request, response);
+	            break;
+	        }
 			case "SET_NEW_PASSWORD": {
 				setNewPassword(request, response);
 				break;
 			}
-
 			default:
 				break;
 			}
@@ -65,55 +68,28 @@ public class ResetPasswordController extends HttpServlet {
 	@SuppressWarnings("null")
 	private void forgotPassword(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
+		
 		String email = request.getParameter("email");
 		RequestDispatcher dispatcher = null;
-		int otpvalue = 0;
 		HttpSession mySession = request.getSession();
 
-		if (email != null || !email.equals("")) {
-			// sending otp
-			Random rand = new Random();
-			otpvalue = rand.nextInt(1255650);
+		 if (email != null && !email.isEmpty()) { // Corrected logical condition
+		        int otpValue = new Random().nextInt(1255650);
 
-			String to = email;// change accordingly
-			// Get the session object
-			Properties props = new Properties();
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "465");
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.socketFactory.port", "465");
-			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		        mySession.setAttribute("otp", otpValue);
+		        mySession.setAttribute("email", email);
 
-			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("javaIsFun12@gmail.com", "qxfv thym qgva pxvt");// Put your email
-																										// id and
-																										// password here
-				}
-			});
-			// compose message
-			try {
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(email));// change accordingly
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-				message.setSubject("Hello");
-				message.setText("your OTP is: " + otpvalue);
-				// send message
-				Transport.send(message);
-				System.out.println("message sent successfully");
-			}
+		        try {
+		            sendOTPEmail(email, otpValue);
+		            request.setAttribute("message", "OTP is sent to your email id");
+		        } catch (MessagingException e) {
+		            e.printStackTrace();
+		            request.setAttribute("message", "Failed to send OTP. Please try again.");
+		        }
 
-			catch (MessagingException e) {
-				throw new RuntimeException(e);
-			}
-			dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
-			request.setAttribute("message", "OTP is sent to your email id");
-			// request.setAttribute("connection", con);
-			mySession.setAttribute("otp", otpvalue);
-			mySession.setAttribute("email", email);
-			dispatcher.forward(request, response);
-			// request.setAttribute("status", "success");
-		}
+		        dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
+		        dispatcher.forward(request, response);
+		    }
 	}
 
 	private void validateOTP(HttpServletRequest request, HttpServletResponse response)
@@ -137,6 +113,60 @@ public class ResetPasswordController extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
 			dispatcher.forward(request, response);
 		}
+	}
+	
+	private void resendOTP(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    HttpSession session = request.getSession();
+	    String email = (String) session.getAttribute("email");
+	    RequestDispatcher dispatcher = null;
+
+	    if (email != null && !email.isEmpty()) {
+	        int otp = new Random().nextInt(1255650);
+	        session.setAttribute("otp", otp);
+
+	        try {
+	            sendOTPEmail(email, otp);
+	            request.setAttribute("message", "A new OTP has been sent to your email.");
+	        } catch (MessagingException e) {
+	            e.printStackTrace();
+	            request.setAttribute("message", "Error resending OTP. Please try again.");
+	        }
+
+	        dispatcher = request.getRequestDispatcher("EnterOtp.jsp");
+	        dispatcher.forward(request, response);
+	    } else {
+	        dispatcher = request.getRequestDispatcher("errorPage.jsp");
+	        request.setAttribute("message", "Email not found in session. Please initiate the process again.");
+	        dispatcher.forward(request, response);
+	    }
+	}
+
+	private void sendOTPEmail(String email, int otp) throws MessagingException {
+	    final String user = "javaIsFun12@gmail.com"; // Your email
+	    final String password = "qxfv thym qgva pxvt"; // Your password
+
+	    Properties props = new Properties();
+	    props.put("mail.smtp.host", "smtp.gmail.com");
+	    props.put("mail.smtp.port", "465");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.socketFactory.port", "465");
+	    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+	    Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+	        protected PasswordAuthentication getPasswordAuthentication() {
+	            return new PasswordAuthentication(user, password);
+	        }
+	    });
+
+	    MimeMessage message = new MimeMessage(session);
+	    message.setFrom(new InternetAddress(user)); // Sender email
+	    message.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); // Recipient email
+	    message.setSubject("OTP Verification");
+	    message.setText("Your OTP is: " + otp);
+
+	    Transport.send(message);
+	    System.out.println("OTP email sent successfully to " + email);
 	}
 
 	private void setNewPassword(HttpServletRequest request, HttpServletResponse response)

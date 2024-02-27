@@ -135,7 +135,8 @@
 	</section>
 	<!-- ***** Products Area Ends ***** -->
 
-	<jsp:include page="contact.jsp" />
+		<jsp:include page="footer-section.jsp"/>
+
 
 </body>
 

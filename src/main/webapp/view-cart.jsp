@@ -80,6 +80,7 @@
 
 		<div class="checkout-grid">
 			<div class="order-summary">
+
 				<c:if test="${empty sessionScope.cart.items}">
 					<h4>Cart is empty</h4>
 				</c:if>
@@ -91,7 +92,6 @@
 
 							<div class="cart-item-details-grid">
 								<img class="product-image" src="assets/images/${item.image}">
-
 
 								<div class="cart-item-details">
 									<div class="product-name">${item.name}</div>
@@ -110,7 +110,6 @@
 										<span class="delete-quantity-link link-primary"> <a
 											href="Cart?action=REMOVE&productId=${item.id}">Delete</a>
 
-
 										</span>
 									</div>
 								</div>
@@ -123,25 +122,26 @@
 					</c:forEach>
 				</c:if>
 
-
 			</div>
 
+		<c:if test="${not empty sessionScope.cart.items}">
 			<div class="payment-summary ">
 				<div class="payment-summary-title">Order Summary</div>
-				<c:if test="${empty sessionScope.cart.getItems()}">
+				<c:choose>
+				<c:when test="${empty sessionScope.cart.getItems()}">
 					<div class="payment-summary-row">
 						<div>Items (${sessionScope.cart.getItems().size()}):</div>
 						<div class="payment-summary-money"></div>
 					</div>
 
-				</c:if>
+				</c:when>
 
-				<c:if test="${not empty sessionScope.cart.getItems()}">
+				<c:otherwise>
 					<div class="payment-summary-row">
 						<div>Items (${sessionScope.cart.getItems().size()}):</div>
 						<div class="payment-summary-money"></div>
 					</div>
-				
+
 
 					<div class="payment-summary-row subtotal-row">
 						<div id="cart-total">Total before tax: $${cart.getTotal()}</div>
@@ -159,31 +159,36 @@
 							$${cart.getTotalWithTax()}</div>
 						<div class="payment-summary-money"></div>
 					</div>
-				</c:if>
+				</c:otherwise>
+			</c:choose>
 
-				<c:if test="${empty sessionScope.user}">
+			<c:choose>
+				<c:when test="${empty sessionScope.user}">
 					<div class=" text-lg-start mt-4 pt-2">
 						<a href="login.jsp" class="btn btn-primary btn-sm"
 							style="padding: 0.5rem 1rem;">Please login to checkout</a>
 					</div>
-				</c:if>
+				</c:when>
 
-				<c:if test="${not empty sessionScope.user}">
+				<c:otherwise>
 					<div class=" text-lg-start mt-4 pt-2">
 						<a href="checkout.jsp" class="btn btn-primary btn-sm"
 							style="padding: 0.5rem 1rem;">Proceed to Checkout</a>
 					</div>
-				</c:if>
+				</c:otherwise>
 
 
 				<%-- <c:if test="${empty sessionScope.cart.items}">
 						<h2 class="cart-heading">Your Cart Is Empty</h2>
 					</c:if> --%>
-
+			</c:choose>
 
 			</div>
-		</div>
+			</c:if>
+			
+		</div>	
 	</div>
+
 	<!-- ***** Subscribe Area Ends ***** -->
 
 	<!-- ***** Footer Start ***** -->

@@ -1,4 +1,4 @@
-![Monosnap Kitchenia - Check Out 2024-03-02 16-13-46](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/5de1bb3b-a960-48d9-8f51-9dd07a59eba9)
+
 # Kitchenware - E-commerce Website
 
 Kitchenia is an e-commerce web application developed by Kim Do & Zavis Nguyen. Built with Java Servlet MVC, Kitchenia offers its users a wide range of personalised features, making it an ideal shopping destination for anyone looking for a seamless online shopping experience.

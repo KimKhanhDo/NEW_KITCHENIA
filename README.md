@@ -1,8 +1,7 @@
 
-
 # Kitchenware - E-commerce Website
 
-This is a web-based kitchenware e-commerce platform that uses Java Servlet MVC to provide customised features to its users.
+Kitchenia is an e-commerce web application developed by Kim Do & Zavis Nguyen. Built with Java Servlet MVC, Kitchenia offers its users a wide range of personalised features, making it an ideal shopping destination for anyone looking for a seamless online shopping experience.
 
 
 ## Technologies
@@ -69,4 +68,11 @@ This is a web-based kitchenware e-commerce platform that uses Java Servlet MVC t
 - The user can easily adjust the quantity of the product they want to buy
 
 ![Monosnap Signature French Oven Cerise 28cm 2024-03-02 12-28-55](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/3889b24e-0b44-44c5-abf1-2a1dc798b681)
-![Monosnap Kitchenia - Check Out Page 2024-03-02 12-29-30](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/4cedfe97-da71-481c-bfd8-43f98eb489bc)
+
+![Monosnap Kitchenia - Check Out Page 2024-03-02 15-24-06](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/e5e6ea3d-432c-4e58-bbe0-4c288bee7952)
+
+#### Check out, Payment & Review order history:
+![Monosnap Kitchenia - Check Out 2024-03-02 15-25-51](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/a7941d64-9272-4aed-ae40-fa40ba29f22e)
+![Monosnap Checkout 2024-03-02 15-26-57](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/0b2b3368-5c12-4a59-9785-b458fc542176)
+![Monosnap Kitchenia - Order History 2024-03-02 15-28-42](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/67a78275-dbd0-4559-9967-0989c61f8b13)
+![Monosnap Inbox • khanh k do02@gmail com 2024-03-02 15-37-22](https://github.com/KimKhanhDo/NEW_KITCHENIA/assets/147982667/7b42ee06-68c3-4165-8a89-d587ab8a2c6d)
